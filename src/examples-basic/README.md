@@ -1,0 +1,15 @@
+Examples Simple
+- create
+- create at index
+- update: patch
+- update: put 
+- attach/detach one-to-one
+- attach/detach one-to-many
+- attach/detach many-to-many
+- delete
+- delete with attachments
+- move
+- move attached
+- sort
+- sort attached
+- set state

@@ -1,0 +1,24 @@
+import React, { Dispatch, ReactNode, useReducer, Reducer } from 'react';
+import { createContext, useContextSelector } from 'use-context-selector';
+import { Reducer } from 'normalized-reducer';
+
+export interface SelectionState {
+  selectedItemId?: string,
+  selectedTagId?: string
+}
+
+export interface SelectionContextValue {
+  state: SelectionState,
+  dispatch?: Dispatch<any>,
+}
+
+
+const selectionContext = createContext<SelectionContextValue>({ state: {} });
+
+export const SelectionProvider = ({ children, initialState = emptyState }: SelectionProviderProps) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const value: SelectionContextValue = { state, dispatch };
+  return (
+    <SelectionContext.Provider value={value}>{children}</SelectionContext.Provider>
+  )
+};

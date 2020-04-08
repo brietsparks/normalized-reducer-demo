@@ -1,0 +1,102 @@
+import React, { useReducer, useState, ReactNode, Dispatch } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
+import {
+  EntitiesProvider,
+  useItemIds,
+  EntitiesState,
+  useTagIds,
+  useItem,
+  useAttachItemToTag,
+  emptyState, StateProviderProps, reducer, entitiesContext
+} from './entities';
+import { Card, CardsContainer } from '../../components/card';
+
+
+const initialState: EntitiesState = {
+  entities: {
+    item: {
+      'i1': { name: '', tagIds: [] },
+      'i2': { name: '', tagIds: [] },
+      'i3': { name: '', tagIds: [] }
+    },
+    tag: {
+      't1': { title: '', itemIds: [] },
+      't2': { title: '', itemIds: [] },
+      't3': { title: '', itemIds: [] },
+    }
+  },
+  ids: {
+    item: ['i1', 'i2', 'i3'],
+    tag: ['t1', 't2', 't3']
+  }
+};
+
+export default function Example() {
+  return (
+    <EntitiesProvider initialState={initialState}>
+      <Grid container>
+        <Grid item sm={6}>
+          <Items/>
+        </Grid>
+        <Grid item sm={6}>
+          <Tags/>
+        </Grid>
+      </Grid>
+    </EntitiesProvider>
+  );
+}
+
+function Items() {
+  const itemIds = useItemIds();
+  const attachToTag = useAttachItemToTag();
+
+  return (
+    <CardsContainer>
+      {itemIds.map(id => {
+
+        return (
+          <Card
+            body={}
+            isSelectable={true}
+          />
+        )
+      })}
+    </CardsContainer>
+  );
+}
+
+interface ItemProps {
+  id: string
+}
+function Item({ id }: ItemProps) {
+  const item = useItem(id);
+  const
+
+  if (!item) {
+    return null;
+  }
+
+  const body = (
+    <Typography>{item.name}</Typography>
+  );
+
+
+
+  return (
+    <Card body={body} />
+  )
+}
+
+function Tags() {
+  const tagIds = useTagIds();
+
+  return (
+    <CardsContainer>
+      {tagIds.map(id => (
+        <p>{id}</p>
+      ))}
+    </CardsContainer>
+  );
+}
