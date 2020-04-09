@@ -15,15 +15,15 @@ export interface User {
 export interface Task {
   id: Id,
   title: string,
-  description: string,
-  laneId: Id,
+  description?: string,
+  statusId: Id,
   creatorId: Id,
   assigneeId?: Id,
   tagIds?: Id[],
   rootCommentIds?: Id[],
 }
 
-export interface Lane {
+export interface Status {
   id: Id,
   title: string,
   boardId: Id,
@@ -33,7 +33,7 @@ export interface Lane {
 export interface Board {
   id: Id,
   title: string,
-  laneIds?: Id[]
+  statusIds?: Id[]
 }
 
 export interface Tag {
@@ -69,7 +69,7 @@ export const makeTask = (task: Partial<Task>): Task => {
     id: task.id || uuid(),
     title: task.title || '',
     description: task.title || '',
-    laneId: task.laneId || '',
+    statusId: task.statusId || '',
     tagIds: task.tagIds || [],
     creatorId: task.creatorId || '',
     assigneeId: task.assigneeId,

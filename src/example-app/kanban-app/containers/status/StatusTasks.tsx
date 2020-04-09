@@ -7,17 +7,17 @@ import { useCreateTask } from '../../hooks/entity-hooks';
 import { useAuthId } from '../../Auth';
 
 export interface Props {
-  laneId: Id,
+  statusId: Id,
   ids: Id[]
 }
 
-export default function LaneTasks({ laneId, ids }: Props) {
+export default function StatusTasks({ statusId, ids }: Props) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const createTask = useCreateTask();
   const authId = useAuthId();
 
   const handleSubmit = (title: string, description: string) => {
-    createTask({ title, description, laneId, creatorId: authId });
+    createTask({ title, description, statusId, creatorId: authId });
     setIsFormOpen(false);
   };
 

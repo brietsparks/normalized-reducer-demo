@@ -11,14 +11,14 @@ export function useCreateUser() {
 }
 export function useCreateTask() {
   const dispatch = useDispatch();
-  return useCallback((task: { title: string, creatorId: Id, laneId: Id, description?: string }) => {
+  return useCallback((task: { title: string, creatorId: Id, statusId: Id, description?: string }) => {
     dispatch(actions.createTask(task));
   }, [dispatch]);
 }
-export function useCreateLane() {
+export function useCreateStatus() {
   const dispatch = useDispatch();
-  return useCallback((lane: { title: string, boardId: Id }) => {
-    dispatch(actions.createLane(lane));
+  return useCallback((status: { title: string, boardId: Id }) => {
+    dispatch(actions.createStatus(status));
   }, [dispatch]);
 }
 export function useCreateBoard() {
@@ -46,6 +46,20 @@ export function useCreateChildComment() {
   }, [dispatch]);
 }
 
+export function useMoveBoardStatus() {
+  const dispatch = useDispatch();
+  return useCallback((boardId: Id, src: number, dest: number) => {
+    dispatch(actions.moveBoardStatus(boardId, src, dest));
+  }, [dispatch]);
+}
+
+export function useMoveBoardStatusTask() {
+  const dispatch = useDispatch();
+  return useCallback((taskId: Id, srcStatusId: Id, src: number, destStatusId: Id, dest: number) => {
+    dispatch(actions.moveStatusTask(taskId, srcStatusId, src, destStatusId, dest));
+  }, [dispatch]);
+}
+
 
 export function useUserIds() {
   return useSelector((state: State) => selectors.getUserIds(state));
@@ -53,8 +67,8 @@ export function useUserIds() {
 export function useTaskIds() {
   return useSelector((state: State) => selectors.getTaskIds(state));
 }
-export function useLaneIds() {
-  return useSelector((state: State) => selectors.getLaneIds(state));
+export function useStatusIds() {
+  return useSelector((state: State) => selectors.getStatusIds(state));
 }
 export function useBoardIds() {
   return useSelector((state: State) => selectors.getBoardIds(state));
@@ -73,8 +87,8 @@ export function useUser(id: Id) {
 export function useTask(id: Id) {
   return useSelector((state: State) => selectors.getTask(state, { id }));
 }
-export function useLane(id: Id) {
-  return useSelector((state: State) => selectors.getLane(state, { id }));
+export function useStatus(id: Id) {
+  return useSelector((state: State) => selectors.getStatus(state, { id }));
 }
 export function useBoard(id: Id) {
   return useSelector((state: State) => selectors.getBoard(state, { id }));

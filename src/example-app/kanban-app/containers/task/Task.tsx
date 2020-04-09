@@ -22,13 +22,12 @@ export default function Task({ id }: Props) {
       id={id}
       title={task.title}
       description={task.description}
-      laneId={task.laneId}
+      statusId={task.statusId}
       creatorId={task.creatorId}
       assigneeId={task?.assigneeId}
       tagIds={task?.tagIds}
       rootCommentIds={task?.rootCommentIds}
       Comments={TaskComments}
     />
-
   );
 }

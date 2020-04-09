@@ -10,6 +10,7 @@ import { KanbanApp } from './example-app/kanban-app';
 const App: React.FC = () => {
   return (
     <div>
+      <CssBaseline/>
       <KanbanApp/>
     </div>
   );

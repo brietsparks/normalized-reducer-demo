@@ -3,7 +3,7 @@ import { Id, makeId } from '../../model';
 
 // user: Record<Id, User>,
 // task: Record<Id, Task>,
-// lane: Record<Id, Lane>,
+// status: Record<Id, Status>,
 // board: Record<Id, Board>,
 // tag: Record<Id, Tag>,
 // comment: Record<Id, Comment>,
@@ -14,26 +14,26 @@ export const createUser = (user: { id?: Id, firstName: string, lastName: string 
   return actionCreators.create('user', id, { ...user, id });
 };
 
-export const createTask = (task: { id?: Id, creatorId: Id, laneId: Id, title: string }) => {
+export const createTask = (task: { id?: Id, creatorId: Id, statusId: Id, title: string }) => {
   const id = task?.id || makeId();
 
-  // a task must have a creator and a lane,
-  // so create the task and attach it to the creator and lane
+  // a task must have a creator and a status,
+  // so create the task and attach it to the creator and status
   return actionCreators.batch(
     actionCreators.create('task', id, { ...task, id }),
     actionCreators.attach('task', id, 'creatorId', task.creatorId),
-    actionCreators.attach('task', id, 'laneId', task.laneId),
+    actionCreators.attach('task', id, 'statusId', task.statusId),
   );
 };
 
-export const createLane = (lane: { id?: Id, boardId: Id, title: string }) => {
-  const id = lane?.id || makeId();
+export const createStatus = (status: { id?: Id, boardId: Id, title: string }) => {
+  const id = status?.id || makeId();
 
-  // a lane must have a board,
-  // so create the lane and attach it the board
+  // a status must have a board,
+  // so create the status and attach it the board
   return actionCreators.batch(
-    actionCreators.create('lane', id, { ...lane, id }),
-    actionCreators.attach('lane', id, 'boardId', lane.boardId)
+    actionCreators.create('status', id, { ...status, id }),
+    actionCreators.attach('status', id, 'boardId', status.boardId)
   );
 };
 
@@ -69,4 +69,16 @@ export const createChildComment = (comment: { id?: Id, parentCommentId: Id, valu
     actionCreators.create('comment', id, { ...comment, id }),
     actionCreators.attach('comment', id, 'comment', comment.parentCommentId)
   );
+};
+
+export const moveBoardStatus = (boardId: Id, src: number, dest: number) => {
+  return actionCreators.moveAttached('board', boardId, 'statusIds', src, dest);
+};
+
+export const moveStatusTask = (taskId: Id, srcStatusId: Id, src: number, destStatusId: Id, dest: number) => {
+  if (srcStatusId === destStatusId) {
+    return actionCreators.moveAttached('status', srcStatusId, 'taskIds', src, dest);
+  } else {
+    return actionCreators.attach('status', destStatusId, 'taskIds', taskId, { index: dest })
+  }
 };

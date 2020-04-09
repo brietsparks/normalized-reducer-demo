@@ -1,0 +1,45 @@
+import React, { ComponentType } from 'react';
+import Typography from '@material-ui/core/Typography';
+import {
+  DragDropContext,
+  DropResult,
+  Droppable,
+  DroppableProvided,
+  Draggable,
+  DraggableProvided,
+} from 'react-beautiful-dnd';
+
+import { Id } from '../../model';
+
+export interface Props {
+  id: Id,
+  title: string,
+  boardId: Id,
+  taskIds?: Id[],
+  Tasks: ComponentType<TasksProps>
+}
+
+export interface TasksProps {
+  statusId: Id,
+  ids: Id[],
+}
+
+export default function Status({ id, title, boardId, taskIds = [], Tasks }: Props) {
+  return (
+    <div>
+      <Typography>{title}</Typography>
+
+      <Droppable type="task" droppableId={id.toString()}>
+        {(provided: DroppableProvided) => {
+          return (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {Tasks && taskIds && (
+                <Tasks statusId={id} ids={taskIds} />
+              )}
+            </div>
+          )
+        }}
+      </Droppable>
+    </div>
+  );
+}

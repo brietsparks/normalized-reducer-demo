@@ -1,10 +1,15 @@
 import React from 'react';
 
 import { Id } from '../../model';
-import { useBoard } from '../../hooks/entity-hooks';
+import {
+  useBoard,
+  useCreateStatus,
+  useMoveBoardStatus,
+  useMoveBoardStatusTask,
+} from '../../hooks/entity-hooks';
 import { Board as BoardPresentation } from '../../components/board';
 
-import BoardLanes from './BoardLanes';
+import { Status } from '../status';
 
 export interface Props {
   id: Id
@@ -12,6 +17,9 @@ export interface Props {
 
 export default function Board({ id }: Props) {
   const board = useBoard(id);
+  const createStatus = useCreateStatus();
+  const moveBoardStatus = useMoveBoardStatus();
+  const moveBoardStatusTask = useMoveBoardStatusTask();
 
   if (!board) {
     return null;
@@ -21,8 +29,11 @@ export default function Board({ id }: Props) {
     <BoardPresentation
       id={board.id}
       title={board.title}
-      laneIds={board.laneIds}
-      Lanes={BoardLanes}
+      createStatus={createStatus}
+      statusIds={board.statusIds}
+      Status={Status}
+      moveStatus={moveBoardStatus}
+      moveTask={moveBoardStatusTask}
     />
   );
 }

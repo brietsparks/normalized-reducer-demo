@@ -3,11 +3,13 @@ import Typography from '@material-ui/core/Typography';
 
 import { Id } from '../../model';
 
+import { useStyles } from './styles';
+
 export interface Props {
   id: Id,
   title: string,
-  description: string,
-  laneId: Id,
+  description?: string,
+  statusId: Id,
   creatorId: Id,
   assigneeId?: Id,
   tagIds?: Id[],
@@ -23,15 +25,17 @@ export interface CommentsProps {
 export default function Task({
   id,
   title,
-  laneId,
+  statusId,
   creatorId,
   assigneeId,
   tagIds,
   rootCommentIds = [],
   Comments,
 }: Props) {
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.comment}>
       <Typography>{title}</Typography>
 
       {Comments &&

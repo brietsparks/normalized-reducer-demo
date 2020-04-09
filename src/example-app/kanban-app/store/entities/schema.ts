@@ -10,16 +10,16 @@ const schema: Schema = {
   task: {
     creatorId: { type: 'user', cardinality: MANY, reciprocal: 'createdTaskIds' },
     assigneeId: { type: 'user', cardinality: MANY, reciprocal: 'assignedTaskIds' },
-    laneId: { type: 'lane', cardinality: ONE, reciprocal: 'taskIds' },
+    statusId: { type: 'status', cardinality: ONE, reciprocal: 'taskIds' },
     tagIds: { type: 'tag', cardinality: MANY, reciprocal: 'taskIds' },
     rootCommentIds: { type: 'comment', cardinality: MANY, reciprocal: 'taskId' }
   },
-  lane: {
-    boardId: { type: 'board', cardinality: ONE, reciprocal: 'laneIds' },
-    taskIds: { type: 'task', cardinality: MANY, reciprocal: 'laneId' }
+  status: {
+    boardId: { type: 'board', cardinality: ONE, reciprocal: 'statusIds' },
+    taskIds: { type: 'task', cardinality: MANY, reciprocal: 'statusId' }
   },
   board: {
-    laneIds: { type: 'lane', cardinality: MANY, reciprocal: 'boardId' }
+    statusIds: { type: 'status', cardinality: MANY, reciprocal: 'boardId' }
   },
   tag: {
     taskIds: { type: 'task', cardinality: MANY, reciprocal: 'tagIds' }

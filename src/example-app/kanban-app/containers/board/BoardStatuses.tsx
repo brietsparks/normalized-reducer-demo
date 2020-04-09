@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 
 import { Id } from '../../model';
-import { useCreateLane } from '../../hooks/entity-hooks';
-import { LaneEditorForm } from '../../components/lane';
-import { Lane } from '../lane';
+import { useCreateStatus } from '../../hooks/entity-hooks';
+import { StatusEditorForm } from '../../components/status';
+import { Status } from '../status';
 
-export interface BoardLanes {
+export interface BoardStatuses {
   boardId: Id,
   ids: Id[]
 }
 
-export default function BoardLanes({ boardId, ids }: BoardLanes) {
+export default function BoardStatuses({ boardId, ids }: BoardStatuses) {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const createLane = useCreateLane();
+  const createStatus = useCreateStatus();
 
   const handleSubmit = (title: string) => {
-    createLane({ title, boardId });
+    createStatus({ title, boardId });
     setIsFormOpen(false);
   };
 
@@ -25,11 +25,11 @@ export default function BoardLanes({ boardId, ids }: BoardLanes) {
     <div>
       {
         isFormOpen
-          ? <LaneEditorForm onSubmit={handleSubmit} onCancel={handleCancel} />
+          ? <StatusEditorForm onSubmit={handleSubmit} onCancel={handleCancel} />
           : <button onClick={() => setIsFormOpen(true)}>+ Add</button>
       }
       {ids.map(id => (
-        <Lane id={id} />
+        <Status id={id} />
       ))}
     </div>
   );
