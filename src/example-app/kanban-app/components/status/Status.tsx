@@ -1,4 +1,5 @@
 import React, { ComponentType, useState } from 'react';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Draggable, DraggableProvided, Droppable, DroppableProvided } from 'react-beautiful-dnd';
 
@@ -44,6 +45,7 @@ export default function Status({
 
   return (
     <div className={`${classes.status} board-status`}>
+      <div className={classes.statusHeader}>
       <Typography align="center">{title}</Typography>
 
       {createTask && creatorId && (
@@ -54,6 +56,7 @@ export default function Status({
           }
         </div>
       )}
+      </div>
 
       <Droppable type="task" droppableId={id.toString()}>
         {(provided: DroppableProvided) => {
@@ -63,10 +66,14 @@ export default function Status({
                 <Draggable key={taskId} draggableId={taskId.toString()} index={index}>
                   {(provided: DraggableProvided) => {
                     return (
-                      <div ref={provided.innerRef} {...provided.draggableProps}>
-                        <span {...provided.dragHandleProps}>=</span>
-                        <Task statusId={id} id={taskId}/>
-                      </div>
+                      <Paper
+                        className={classes.task}
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                      >
+                          <Task statusId={id} id={taskId}/>
+                      </Paper>
                     )
                   }}
                 </Draggable>

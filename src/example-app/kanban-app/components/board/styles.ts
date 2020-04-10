@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
   board: {
     height: '100vh',
     display: 'flex',
@@ -8,19 +8,19 @@ export const useStyles = makeStyles(() => ({
   },
   lanes: {
     flexGrow: 1,
-    background: '#ccc',
     display: 'flex',
     overflowX: 'scroll',
+    padding: theme.spacing(1)
   },
   lane: {
-    border: 'solid 1px',
     flexBasis: 350,
     flexGrow: 0,
     flexShrink: 0,
     overflowY: 'scroll',
     display: 'flex',
     flexDirection: 'column',
-    position: 'relative'
+    position: 'relative',
+    margin: theme.spacing(1)
   },
   dragHandle: {
     position: 'absolute'

@@ -1,5 +1,7 @@
 import React, { ComponentType } from 'react';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
 
 import { Id } from '../../model';
 
@@ -35,12 +37,22 @@ export default function Task({
   const classes = useStyles();
 
   return (
-    <div className={classes.comment}>
-      <Typography>{title}</Typography>
+    <div className={classes.task}>
+      <div className={classes.taskHeader}>
+        <Typography>{title}</Typography>
 
-      {Comments &&
-      <Comments taskId={id} ids={rootCommentIds}/>
-      }
+        <span>
+          <IconButton>
+            <MoreHoriz/>
+          </IconButton>
+        </span>
+      </div>
+
+      <div>
+        {Comments &&
+        <Comments taskId={id} ids={rootCommentIds}/>
+        }
+      </div>
     </div>
   );
 }

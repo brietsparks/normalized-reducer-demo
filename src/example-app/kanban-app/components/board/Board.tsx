@@ -1,5 +1,6 @@
 import React, { ComponentType, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import {
   DragDropContext,
   DropResult,
@@ -91,10 +92,10 @@ export default function Board({
                   <Draggable key={statusId} draggableId={statusId.toString()} index={index}>
                     {(provided: DraggableProvided) => {
                       return (
-                        <div className={classes.lane} ref={provided.innerRef} {...provided.draggableProps}>
+                        <Paper className={classes.lane} ref={provided.innerRef} {...provided.draggableProps}>
                           <span {...provided.dragHandleProps} className={classes.dragHandle}>=</span>
                           <Status boardId={id} id={statusId} />
-                        </div>
+                        </Paper>
                       )
                     }}
                   </Draggable>
