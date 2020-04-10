@@ -17,5 +17,12 @@ export const useStyles = makeStyles(() => ({
     flexBasis: 350,
     flexGrow: 0,
     flexShrink: 0,
+    overflowY: 'scroll',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative'
+  },
+  dragHandle: {
+    position: 'absolute'
   }
 }));

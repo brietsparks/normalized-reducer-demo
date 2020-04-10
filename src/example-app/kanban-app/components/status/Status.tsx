@@ -1,16 +1,20 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Draggable, DraggableProvided, Droppable, DroppableProvided, } from 'react-beautiful-dnd';
+import { Draggable, DraggableProvided, Droppable, DroppableProvided } from 'react-beautiful-dnd';
 
 import { Id } from '../../model';
+import { TaskEditorForm } from '../task';
 import { useStyles } from './styles';
+import './styles.css';
 
 export interface Props {
   id: Id,
   title: string,
   boardId: Id,
   taskIds?: Id[],
-  Task: ComponentType<TaskProps>
+  creatorId?: Id,
+  Task: ComponentType<TaskProps>,
+  createTask?: (task: { title: string, description?: string, statusId: Id, creatorId: Id }) => void,
 }
 
 export interface TaskProps {
@@ -18,12 +22,38 @@ export interface TaskProps {
   id: Id,
 }
 
-export default function Status({ id, title, boardId, taskIds = [], Task }: Props) {
+export default function Status({
+  id,
+  title, boardId,
+  taskIds = [],
+  Task,
+  creatorId,
+  createTask,
+}: Props) {
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const classes = useStyles();
 
+  const handleSubmitNewTask = (title: string, description?: string) => {
+    if (createTask && creatorId) {
+      createTask({ title, description, statusId: id, creatorId });
+    }
+    setIsFormOpen(false);
+  };
+
+  const handleCancelNewTask = () => setIsFormOpen(false);
+
   return (
-    <div className={classes.status}>
-      <Typography>{title}</Typography>
+    <div className={`${classes.status} board-status`}>
+      <Typography align="center">{title}</Typography>
+
+      {createTask && creatorId && (
+        <div>
+          {isFormOpen
+            ? <TaskEditorForm onSubmit={handleSubmitNewTask} onCancel={handleCancelNewTask} />
+            : <button onClick={() => setIsFormOpen(true)}>+ Add</button>
+          }
+        </div>
+      )}
 
       <Droppable type="task" droppableId={id.toString()}>
         {(provided: DroppableProvided) => {

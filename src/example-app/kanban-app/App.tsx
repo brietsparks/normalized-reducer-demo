@@ -105,7 +105,7 @@ const state: State = {
 
 export default function App() {
   return (
-    <AuthContextProvider authId="" role={Role.USER}>
+    <AuthContextProvider authId="u1" role={Role.USER}>
       <StoreProvider state={state}>
         <Board id="b1"/>
         {/*<Comment id={'c1'} />*/}

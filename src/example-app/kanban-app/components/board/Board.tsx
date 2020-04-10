@@ -6,7 +6,7 @@ import {
   Droppable,
   DroppableProvided,
   Draggable,
-  DraggableProvided,
+  DraggableProvided, DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd';
 
 import { Id } from '../../model';
@@ -92,7 +92,7 @@ export default function Board({
                     {(provided: DraggableProvided) => {
                       return (
                         <div className={classes.lane} ref={provided.innerRef} {...provided.draggableProps}>
-                          <span {...provided.dragHandleProps}>=</span>
+                          <span {...provided.dragHandleProps} className={classes.dragHandle}>=</span>
                           <Status boardId={id} id={statusId} />
                         </div>
                       )

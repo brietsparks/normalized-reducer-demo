@@ -6,12 +6,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // import Example from './examples-basic/create';
 // import AttachDetach from './examples-basic/attach-detach';
 import { KanbanApp } from './example-app/kanban-app';
+import CompositeTree from './examples-advanced/composite-tree';
 
 const App: React.FC = () => {
   return (
     <div>
       <CssBaseline/>
       <KanbanApp/>
+      {/*<CompositeTree/>*/}
     </div>
   );
 };

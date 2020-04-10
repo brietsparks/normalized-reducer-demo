@@ -1,6 +1,7 @@
 Example Advanced
 - batch actions
-- tree (self-referencing schema)
+- simple tree
+- composite tree
 - cascading delete
 - cascading delete, recursive
 
