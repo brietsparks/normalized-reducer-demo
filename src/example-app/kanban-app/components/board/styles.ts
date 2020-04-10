@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: 'flex',
     overflowX: 'scroll',
-    padding: theme.spacing(1)
+    padding: theme.spacing(1.5)
   },
   lane: {
     flexBasis: 350,
@@ -20,9 +20,13 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    margin: theme.spacing(1)
+    margin: theme.spacing(1.5),
+    border: '1px solid #e1e4e8',
   },
   dragHandle: {
-    position: 'absolute'
+    position: 'absolute',
+    left: 4,
+    top: 10,
+    color: 'rgba(0, 0, 0, 0.54)'
   }
 }));

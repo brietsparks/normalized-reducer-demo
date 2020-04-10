@@ -1,6 +1,9 @@
 import React, { ComponentType, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { Draggable, DraggableProvided, Droppable, DroppableProvided } from 'react-beautiful-dnd';
 
 import { Id } from '../../model';
@@ -33,29 +36,36 @@ export default function Status({
 }: Props) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const classes = useStyles();
+  const openForm = () => setIsFormOpen(true);
+  const closeForm = () => setIsFormOpen(false);
 
   const handleSubmitNewTask = (title: string, description?: string) => {
     if (createTask && creatorId) {
       createTask({ title, description, statusId: id, creatorId });
     }
-    setIsFormOpen(false);
+    closeForm();
   };
-
-  const handleCancelNewTask = () => setIsFormOpen(false);
 
   return (
     <div className={`${classes.status} board-status`}>
       <div className={classes.statusHeader}>
-      <Typography align="center">{title}</Typography>
+        <Typography align="center" className={classes.statusTitle}>{title}</Typography>
 
-      {createTask && creatorId && (
-        <div>
-          {isFormOpen
-            ? <TaskEditorForm onSubmit={handleSubmitNewTask} onCancel={handleCancelNewTask} />
-            : <button onClick={() => setIsFormOpen(true)}>+ Add</button>
-          }
+        <div className={classes.buttons} onClick={openForm}>
+          <IconButton size="small" disabled={isFormOpen}>
+            <AddIcon fontSize="small" />
+          </IconButton>
+
+          <IconButton size="small">
+            <MoreHorizIcon fontSize="small" />
+          </IconButton>
         </div>
-      )}
+      </div>
+
+      <div className={classes.form}>
+        {isFormOpen && (
+          <TaskEditorForm onSubmit={handleSubmitNewTask} onCancel={closeForm}/>
+        )}
       </div>
 
       <Droppable type="task" droppableId={id.toString()}>
@@ -72,7 +82,7 @@ export default function Status({
                         {...provided.dragHandleProps}
                         {...provided.draggableProps}
                       >
-                          <Task statusId={id} id={taskId}/>
+                        <Task statusId={id} id={taskId}/>
                       </Paper>
                     )
                   }}

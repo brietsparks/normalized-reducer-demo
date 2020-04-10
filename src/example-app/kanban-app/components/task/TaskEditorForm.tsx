@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 export interface Props {
   onSubmit: (title: string, description: string) => void
@@ -25,21 +28,30 @@ export default function TaskEditorForm({ onSubmit, onCancel }: Props) {
 
   return (
     <div>
-      <input
+      <TextField
         autoFocus
+        fullWidth
         placeholder="Title"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
 
-      <textarea
+      <TextField
+        fullWidth
+        multiline
         placeholder="Description"
         value={description}
         onChange={e => setDescription(e.target.value)}
       />
 
-      <button onClick={handleCancel}>Cancel</button>
-      <button onClick={handleSubmit} disabled={!title}>Add</button>
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <Button fullWidth onClick={handleCancel}>Cancel</Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button fullWidth onClick={handleSubmit} color="primary">Add</Button>
+        </Grid>
+      </Grid>
     </div>
   );
 }

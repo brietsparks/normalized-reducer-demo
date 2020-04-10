@@ -1,13 +1,14 @@
 import React, { ComponentType, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import DragIndicator from '@material-ui/icons/DragIndicator';
 import {
   DragDropContext,
   DropResult,
   Droppable,
   DroppableProvided,
   Draggable,
-  DraggableProvided, DraggableProvidedDragHandleProps,
+  DraggableProvided,
 } from 'react-beautiful-dnd';
 
 import { Id } from '../../model';
@@ -92,8 +93,15 @@ export default function Board({
                   <Draggable key={statusId} draggableId={statusId.toString()} index={index}>
                     {(provided: DraggableProvided) => {
                       return (
-                        <Paper className={classes.lane} ref={provided.innerRef} {...provided.draggableProps}>
-                          <span {...provided.dragHandleProps} className={classes.dragHandle}>=</span>
+                        <Paper
+                          elevation={0}
+                          className={classes.lane}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                        >
+                          <span {...provided.dragHandleProps} className={classes.dragHandle}>
+                            <DragIndicator fontSize="small" />
+                          </span>
                           <Status boardId={id} id={statusId} />
                         </Paper>
                       )

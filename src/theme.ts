@@ -53,6 +53,10 @@ export default createMuiTheme({
           boxShadow: 'none'
         }
       }
+    },
+    MuiInputBase: {
+      input: { background: '#fff' },
+      multiline: { background: '#fff' }
     }
   },
   props: {
@@ -73,6 +77,8 @@ export default createMuiTheme({
       size: 'small',
     },
     MuiButton: {
+      disableElevation: true,
+      variant: 'contained',
       disableRipple: true,
     },
     MuiTextField: {
@@ -91,3 +97,4 @@ export default createMuiTheme({
     },
   },
 });
+

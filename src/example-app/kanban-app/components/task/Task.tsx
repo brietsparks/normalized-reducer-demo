@@ -42,8 +42,8 @@ export default function Task({
         <Typography>{title}</Typography>
 
         <span>
-          <IconButton>
-            <MoreHoriz/>
+          <IconButton size="small">
+            <MoreHoriz fontSize="small" />
           </IconButton>
         </span>
       </div>

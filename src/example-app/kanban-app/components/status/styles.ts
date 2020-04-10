@@ -5,13 +5,25 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
+    background: '#eff1f3',
   },
   statusHeader: {
-    background: '#ccc',
     padding: theme.spacing(1),
+    display: 'flex',
+    width: '100%'
+  },
+  statusTitle: {
+    flexGrow: 1,
+    marginLeft: theme.spacing(6),
+    fontWeight: 'bold'
+  },
+  buttons: {
+  },
+  form: {
+    padding: theme.spacing(1.5)
   },
   tasks: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(1.5),
   },
   task: {
     marginBottom: theme.spacing(.5),

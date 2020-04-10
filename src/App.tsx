@@ -2,6 +2,7 @@ import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import theme from './theme';
 // import Example from './components/card/Example';
 // import Example from './examples-basic/create';
 // import AttachDetach from './examples-basic/attach-detach';
@@ -10,11 +11,11 @@ import CompositeTree from './examples-advanced/composite-tree';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <MuiThemeProvider theme={theme}>
       <CssBaseline/>
       <KanbanApp/>
       {/*<CompositeTree/>*/}
-    </div>
+    </MuiThemeProvider>
   );
 };
 
