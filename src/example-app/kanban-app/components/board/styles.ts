@@ -10,6 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: 'flex',
     overflowX: 'scroll',
+    scrollBehavior: 'smooth',
     padding: theme.spacing(1.5)
   },
   lane: {

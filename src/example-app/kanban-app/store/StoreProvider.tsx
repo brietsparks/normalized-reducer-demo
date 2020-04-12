@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import rootReducer from './reducer';
+import { reducer } from './normalized';
 import { State, emptyState } from './state';
 
 
@@ -11,8 +11,7 @@ export interface Props {
   state?: State
 }
 export default function StoreProvider({ children, state = emptyState }: Props) {
-  // @ts-ignore // todo
-  const store = createStore(rootReducer, state);
+  const store = createStore(reducer, state);
 
   return (
     <Provider store={store}>

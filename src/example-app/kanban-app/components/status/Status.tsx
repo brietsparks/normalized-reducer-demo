@@ -51,8 +51,8 @@ export default function Status({
       <div className={classes.statusHeader}>
         <Typography align="center" className={classes.statusTitle}>{title}</Typography>
 
-        <div className={classes.buttons} onClick={openForm}>
-          <IconButton size="small" disabled={isFormOpen}>
+        <div className={classes.buttons}>
+          <IconButton size="small" onClick={openForm}>
             <AddIcon fontSize="small" />
           </IconButton>
 

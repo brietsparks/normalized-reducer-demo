@@ -1,17 +1,17 @@
-import { Id } from '../model';
+import { Board, Comment, Id, Status, Tag, Task, User } from '../model';
+import { selectors} from './normalized';
 import { State } from './state';
-import { selectors as entitiesSelectors } from './entities';
 
-export const getUserIds = (state: State) => entitiesSelectors.getUserIds(state.entities);
-export const getTaskIds = (state: State) => entitiesSelectors.getTaskIds(state.entities);
-export const getStatusIds = (state: State) => entitiesSelectors.getStatusIds(state.entities);
-export const getBoardIds = (state: State) => entitiesSelectors.getBoardIds(state.entities);
-export const getTagIds = (state: State) => entitiesSelectors.getTagIds(state.entities);
-export const getCommentIds = (state: State) => entitiesSelectors.getCommentIds(state.entities);
+export const getUserIds = (state: State) => selectors.getIds(state, { type: 'user' });
+export const getTaskIds = (state: State) => selectors.getIds(state, { type: 'task' });
+export const getStatusIds = (state: State) => selectors.getIds(state, { type: 'status' });
+export const getBoardIds = (state: State) => selectors.getIds(state, { type: 'board' });
+export const getTagIds = (state: State) => selectors.getIds(state, { type: 'tag' });
+export const getCommentIds = (state: State) => selectors.getIds(state, { type: 'comment' });
 
-export const getUser = (state: State, args: { id: Id }) => entitiesSelectors.getUser(state.entities, args);
-export const getTask = (state: State, args: { id: Id }) => entitiesSelectors.getTask(state.entities, args);
-export const getStatus = (state: State, args: { id: Id }) => entitiesSelectors.getStatus(state.entities, args);
-export const getBoard = (state: State, args: { id: Id }) => entitiesSelectors.getBoard(state.entities, args);
-export const getTag = (state: State, args: { id: Id }) => entitiesSelectors.getTag(state.entities, args);
-export const getComment = (state: State, args: { id: Id }) => entitiesSelectors.getComment(state.entities, args);
+export const getUser = (state: State, args: { id: Id }) => selectors.getEntity<User>(state, { type: 'user', id: args.id });
+export const getTask = (state: State, args: { id: Id }) => selectors.getEntity<Task>(state, { type: 'task', id: args.id });
+export const getStatus = (state: State, args: { id: Id }) => selectors.getEntity<Status>(state, { type: 'status', id: args.id });
+export const getBoard = (state: State, args: { id: Id }) => selectors.getEntity<Board>(state, { type: 'board', id: args.id });
+export const getTag = (state: State, args: { id: Id }) => selectors.getEntity<Tag>(state, { type: 'tag', id: args.id });
+export const getComment = (state: State, args: { id: Id }) => selectors.getEntity<Comment>(state, { type: 'comment', id: args.id });
