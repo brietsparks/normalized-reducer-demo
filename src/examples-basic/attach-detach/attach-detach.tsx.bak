@@ -1,11 +1,12 @@
-import React, { useReducer, useState, ReactNode, Dispatch } from 'react';
-import normalizedSlice, { Cardinalities, Id, Schema, Reducer } from 'normalized-reducer';
+import React, { useReducer, useState } from 'react';
+import normalizedSlice, { Cardinalities, Id, Schema } from 'normalized-reducer';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { Layout } from '../components/layout';
-import { Card, CardsContainer } from '../components/card';
+import { Layout } from '../../components/layout';
+import { Card, CardsContainer } from '../../components/card';
+import { useAttachDetachStyles } from './styles';
 
 export interface Item {
   name: string,
@@ -107,7 +108,7 @@ export default function Example() {
             }
 
             const isSelected = selectedItem === itemId;
-            const isChecked = selectedTag ? item.tagIds?.includes(selectedTag) : false;
+            const isAttachedToSelected = selectedTag ? item.tagIds?.includes(selectedTag) : false;
             const handleCheckboxChange = (e: any, value: boolean) => {
               if (selectedTag) {
                 value
@@ -119,8 +120,21 @@ export default function Example() {
             return (
               <Card
                 key={itemId}
-                body={<CardBody id={itemId} text={item?.name} ids={item?.tagIds} />}
-                right={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />}
+                body={
+                  <CardBody
+                    id={itemId}
+                    text={item?.name}
+                    ids={item?.tagIds}
+                    isSelected={isSelected}
+                    isAttachedToSelected={isAttachedToSelected}
+                  />
+                }
+                right={(
+                  <Checkbox
+                    checked={isAttachedToSelected}
+                    onChange={handleCheckboxChange}
+                  />
+                )}
                 onSelect={() => selectItem(itemId)}
                 onDeselect={deselectItem}
                 isSelectable
@@ -141,7 +155,7 @@ export default function Example() {
             }
 
             const isSelected = selectedTag === tagId;
-            const isChecked = selectedItem ? tag.itemIds?.includes(selectedItem) : false;
+            const isAttachedToSelected = selectedItem ? tag.itemIds?.includes(selectedItem) : false;
             const handleCheckboxChange = (e: any, value: boolean) => {
               if (selectedItem) {
                 value
@@ -153,8 +167,16 @@ export default function Example() {
             return (
               <Card
                 key={tagId}
-                body={<CardBody id={tagId} text={tag?.title} ids={tag?.itemIds} />}
-                left={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />}
+                body={
+                  <CardBody
+                    id={tagId}
+                    text={tag?.title}
+                    ids={tag?.itemIds}
+                    isSelected={isSelected}
+                    isAttachedToSelected={isAttachedToSelected}
+                  />
+                }
+                left={<Checkbox checked={isAttachedToSelected} onChange={handleCheckboxChange} />}
                 onSelect={() => selectTag(tagId)}
                 onDeselect={deselectTag}
                 isSelectable
@@ -176,12 +198,31 @@ export default function Example() {
   )
 }
 
-function CardBody(props: { id: Id, text: string, ids: Id[] }) {
+interface CardBodyProps {
+  id: Id,
+  text: string,
+  ids: Id|(Id[]),
+  isSelected?: boolean,
+  isAttachedToSelected?: boolean,
+}
+function CardBody({
+  id,
+  text,
+  ids,
+  isSelected,
+  isAttachedToSelected,
+}: CardBodyProps) {
+  const classes = useAttachDetachStyles({ isSelected, isAttachedToSelected });
+
   return (
     <div>
-      <Typography variant="caption">{props.id}</Typography>
-      <Typography>{props.text}</Typography>
-      <pre>{JSON.stringify(props.ids)}</pre>
+      <Typography variant="caption" className={classes.cardId}>{id}</Typography>
+      <Typography>{text}</Typography>
+
+      <div className={classes.cardAttached}>
+        <Typography variant="caption">Attached Ids:</Typography>
+        <pre className={classes.cardAttachedIds}>{JSON.stringify(ids)}</pre>
+      </div>
     </div>
   );
 }
