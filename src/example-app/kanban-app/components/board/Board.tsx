@@ -2,6 +2,8 @@ import React, { ComponentType, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import DragIndicator from '@material-ui/icons/DragIndicator';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
 import {
   DragDropContext,
   DropResult,
@@ -74,16 +76,24 @@ export default function Board({
   return (
     <div className={classes.board}>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <Typography>{title}</Typography>
+        <Typography>
+          {title}
+          <Button
+            color="primary"
+            onClick={() => setIsFormOpen(true)}
+          >Add Column</Button>
+        </Typography>
 
-        {createStatus &&
-          <div>
-            {isFormOpen
-              ? <StatusEditorForm onSubmit={handleSubmitNewStatus} onCancel={handleCancelNewStatus}/>
-              : <button onClick={() => setIsFormOpen(true)}>+ Add</button>
-            }
-          </div>
-        }
+        {createStatus && (
+          <Dialog open={isFormOpen}>
+            <Paper className={classes.dialog}>
+              <StatusEditorForm
+                onSubmit={handleSubmitNewStatus}
+                onCancel={handleCancelNewStatus}
+              />
+            </Paper>
+          </Dialog>
+        )}
 
         <Droppable type="status" droppableId={id.toString()} direction="horizontal">
           {(provided: DroppableProvided) => {

@@ -29,7 +29,7 @@ export default function StatusEditorForm({ title: initialTitle = '', onSubmit, o
       <TextField
         autoFocus
         fullWidth
-        placeholder="Title"
+        placeholder="Column Title"
         value={value}
         onChange={e => setValue(e.target.value)}
       />

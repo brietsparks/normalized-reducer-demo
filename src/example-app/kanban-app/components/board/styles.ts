@@ -29,5 +29,8 @@ export const useStyles = makeStyles((theme) => ({
     left: 4,
     top: 10,
     color: 'rgba(0, 0, 0, 0.54)'
+  },
+  dialog: {
+    padding: theme.spacing(2)
   }
 }));
