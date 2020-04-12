@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 
-import { useStatusEditorStyles } from './styles';
+import { ConfirmationButtons } from '../buttons';
 
 export interface Props {
   title?: string,
@@ -26,8 +24,6 @@ export default function StatusEditorForm({ title: initialTitle = '', onSubmit, o
     setValue('');
   };
 
-  const classes = useStatusEditorStyles();
-
   return (
     <div>
       <TextField
@@ -38,16 +34,7 @@ export default function StatusEditorForm({ title: initialTitle = '', onSubmit, o
         onChange={e => setValue(e.target.value)}
       />
 
-      <div className={classes.buttons}>
-        <Grid container spacing={1} >
-          <Grid item xs={6}>
-            <Button fullWidth onClick={handleCancel}>Cancel</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button fullWidth onClick={handleSubmit} color="primary">Done</Button>
-          </Grid>
-        </Grid>
-      </div>
+      <ConfirmationButtons onConfirm={handleSubmit} onCancel={handleCancel} />
     </div>
   );
 }

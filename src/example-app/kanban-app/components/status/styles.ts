@@ -30,14 +30,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     display: 'flex',
   },
-  editorDialog: {
+  dialog: {
     padding: theme.spacing(2)
   }
 }));
-
-export const useStatusEditorStyles = makeStyles(theme => ({
-  buttons: {
-    marginTop: theme.spacing(1)
-  }
-}));
-

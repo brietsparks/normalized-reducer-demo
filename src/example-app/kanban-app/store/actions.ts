@@ -43,6 +43,11 @@ export const updateStatus = (id: Id, status: { title?: string }) => {
   return actionCreators.update('status', id, status);
 };
 
+export const deleteStatus = (id: Id) => {
+  return actionCreators.delete('status', id);
+};
+
+
 export const createBoard = (board: { id?: Id, title: string }) => {
   const id = board?.id || makeId();
 

@@ -73,7 +73,7 @@ export default function Task({
 
       {isEditorOpen &&
         <Dialog open={isEditorOpen}>
-          <Paper className={classes.editorDialog}>
+          <Paper className={classes.dialog}>
             <TaskEditorForm
               title={title}
               description={description}

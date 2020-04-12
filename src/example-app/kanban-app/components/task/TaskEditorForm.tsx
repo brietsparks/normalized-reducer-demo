@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 
-import { useTaskEditorStyles } from './styles';
+import { ConfirmationButtons } from '../buttons';
 
 export interface Props {
   title?: string,
@@ -20,8 +18,6 @@ export default function TaskEditorForm({
 }: Props) {
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription);
-
-  const classes = useTaskEditorStyles();
 
   const handleSubmit = () => {
     if (title) {
@@ -55,16 +51,7 @@ export default function TaskEditorForm({
         onChange={e => setDescription(e.target.value)}
       />
 
-      <div className={classes.buttons}>
-        <Grid container spacing={1} >
-          <Grid item xs={6}>
-            <Button fullWidth onClick={handleCancel}>Cancel</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button fullWidth onClick={handleSubmit} color="primary">Done</Button>
-          </Grid>
-        </Grid>
-      </div>
+      <ConfirmationButtons onConfirm={handleSubmit} onCancel={handleCancel} />
     </div>
   );
 }

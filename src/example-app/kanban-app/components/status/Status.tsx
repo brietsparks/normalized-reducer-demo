@@ -9,6 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { Id } from '../../model';
 import { TaskEditorForm } from '../task';
 import { OptionsPopper } from '../options-popper';
+import { ConfirmationButtons } from '../buttons';
 import { useStyles } from './styles';
 import StatusOptions from './StatusOptions';
 import StatusEditorForm from './StatusEditorForm';
@@ -23,7 +24,7 @@ export interface Props {
   Task: ComponentType<TaskProps>,
   updateStatus: (id: Id, status: { title?: string }) => void,
   createTask?: (task: { title: string, description?: string, statusId: Id, creatorId: Id }) => void,
-  deleteTask?: (id: Id) => void,
+  deleteStatus?: (id: Id) => void,
 }
 
 export interface TaskProps {
@@ -39,7 +40,7 @@ export default function Status({
   creatorId,
   updateStatus,
   createTask,
-  deleteTask,
+  deleteStatus,
 }: Props) {
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
   const openTaskForm = () => setIsTaskFormOpen(true);
@@ -48,6 +49,10 @@ export default function Status({
   const [isStatusEditorOpen, setIsStatusEditorOpen] = useState(false);
   const openStatusEditor = () => setIsStatusEditorOpen(true);
   const closeStatusEditor = () => setIsStatusEditorOpen(false);
+
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const openDeleteConfirm = () => setIsDeleteConfirmOpen(true);
+  const closeDeleteConfirm = () => setIsDeleteConfirmOpen(false);
 
   const handleSubmitNewTask = (title: string, description?: string) => {
     if (createTask && creatorId) {
@@ -63,9 +68,9 @@ export default function Status({
     closeStatusEditor();
   };
 
-  const handleClickDelete = () => {
-    if (deleteTask) {
-      deleteTask(id);
+  const handleConfirmDelete = () => {
+    if (deleteStatus) {
+      deleteStatus(id);
     }
   };
 
@@ -84,17 +89,29 @@ export default function Status({
           <OptionsPopper>
             <StatusOptions
               onClickEdit={openStatusEditor}
-              onClickDelete={handleClickDelete}
+              onClickDelete={openDeleteConfirm}
             />
           </OptionsPopper>
         </div>
 
         <Dialog open={isStatusEditorOpen}>
-          <Paper className={classes.editorDialog}>
+          <Paper className={classes.dialog}>
             <StatusEditorForm
               title={title}
               onSubmit={handleSubmitEditStatus}
               onCancel={closeStatusEditor}
+            />
+          </Paper>
+        </Dialog>
+
+        <Dialog open={isDeleteConfirmOpen}>
+          <Paper className={classes.dialog}>
+            <Typography>Delete column "{title}"?</Typography>
+            <ConfirmationButtons
+              onCancel={closeDeleteConfirm}
+              onConfirm={handleConfirmDelete}
+              confirmColor="secondary"
+              cancelLabel="Delete"
             />
           </Paper>
         </Dialog>

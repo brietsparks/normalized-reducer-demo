@@ -43,6 +43,13 @@ export function useUpdateStatus() {
     dispatch(actions.updateStatus(id, status));
   }, [dispatch]);
 }
+export function useDeleteStatus() {
+  const dispatch = useDispatch();
+  return useCallback((id: Id) => {
+    dispatch(actions.deleteStatus(id));
+  }, [dispatch]);
+}
+
 
 
 export function useCreateBoard() {

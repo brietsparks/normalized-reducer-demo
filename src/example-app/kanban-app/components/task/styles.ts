@@ -8,13 +8,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between'
   },
-  editorDialog: {
+  dialog: {
     padding: theme.spacing(2)
-  }
-}));
-
-export const useTaskEditorStyles = makeStyles(theme => ({
-  buttons: {
-    marginTop: theme.spacing(1)
   }
 }));

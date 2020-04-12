@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Id } from '../../model';
-import { useCreateTask, useStatus, useUpdateStatus } from '../../hooks/entity-hooks';
+import { useCreateTask, useStatus, useUpdateStatus, useDeleteStatus } from '../../hooks/entity-hooks';
 import { Status as StatusPresentation } from '../../components/status';
 import { useAuthId } from '../../Auth';
 import { Task } from '../task';
@@ -13,6 +13,7 @@ export interface Props {
 export default function Status({ id, ...props }: Props) {
   const status = useStatus(id);
   const updateStatus = useUpdateStatus();
+  const deleteStatus = useDeleteStatus();
 
   const createTask = useCreateTask();
   const authId = useAuthId();
@@ -31,6 +32,7 @@ export default function Status({ id, ...props }: Props) {
       createTask={createTask}
       creatorId={authId}
       updateStatus={updateStatus}
+      deleteStatus={deleteStatus}
       {...props}
     />
   );
