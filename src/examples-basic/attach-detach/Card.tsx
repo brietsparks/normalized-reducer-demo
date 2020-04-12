@@ -106,7 +106,7 @@ function CardBody({
 
       <div className={classes.cardAttached}>
         <Typography variant="caption">Attached Ids:</Typography>
-        <pre className={classes.cardAttachedIds}>{JSON.stringify(ids)}</pre>
+        <pre className={classes.cardAttachedIds}>{ids ? JSON.stringify(ids) : " "}</pre>
       </div>
     </div>
   );
