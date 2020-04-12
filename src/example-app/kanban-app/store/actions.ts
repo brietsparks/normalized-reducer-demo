@@ -7,7 +7,7 @@ export const createUser = (user: { id?: Id, firstName: string, lastName: string 
   return actionCreators.create('user', id, { ...user, id });
 };
 
-export const createTask = (task: { id?: Id, creatorId: Id, statusId: Id, title: string }) => {
+export const createTask = (task: { id?: Id, creatorId: Id, statusId: Id, title: string, description?: string }) => {
   const id = task?.id || makeId();
 
   // a task must have a creator and a status,
@@ -19,6 +19,15 @@ export const createTask = (task: { id?: Id, creatorId: Id, statusId: Id, title: 
   );
 };
 
+export const updateTask = (id: Id, task: { title?: string, description?: string }) => {
+  return actionCreators.update('task', id, task);
+};
+
+export const deleteTask = (id: Id) => {
+  return actionCreators.delete('task', id);
+};
+
+
 export const createStatus = (status: { id?: Id, boardId: Id, title: string }) => {
   const id = status?.id || makeId();
 
@@ -28,6 +37,10 @@ export const createStatus = (status: { id?: Id, boardId: Id, title: string }) =>
     actionCreators.create('status', id, { ...status, id }),
     actionCreators.attach('status', id, 'boardId', status.boardId)
   );
+};
+
+export const updateStatus = (id: Id, status: { title?: string }) => {
+  return actionCreators.update('status', id, status);
 };
 
 export const createBoard = (board: { id?: Id, title: string }) => {

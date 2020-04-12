@@ -9,18 +9,42 @@ export function useCreateUser() {
     dispatch(actions.createUser(user));
   }, [dispatch]);
 }
+
+
 export function useCreateTask() {
   const dispatch = useDispatch();
   return useCallback((task: { title: string, creatorId: Id, statusId: Id, description?: string }) => {
     dispatch(actions.createTask(task));
   }, [dispatch]);
 }
+export function useUpdateTask() {
+  const dispatch = useDispatch();
+  return useCallback((id: Id, task: { title?: string, description?: string }) => {
+    dispatch(actions.updateTask(id, task));
+  }, [dispatch]);
+}
+export function useDeleteTask() {
+  const dispatch = useDispatch();
+  return useCallback((id: Id) => {
+    dispatch(actions.deleteTask(id));
+  }, [dispatch]);
+}
+
+
 export function useCreateStatus() {
   const dispatch = useDispatch();
   return useCallback((status: { title: string, boardId: Id }) => {
     dispatch(actions.createStatus(status));
   }, [dispatch]);
 }
+export function useUpdateStatus() {
+  const dispatch = useDispatch();
+  return useCallback((id: Id, status: { title?: string }) => {
+    dispatch(actions.updateStatus(id, status));
+  }, [dispatch]);
+}
+
+
 export function useCreateBoard() {
   const dispatch = useDispatch();
   return useCallback((board: { title: string }) => {
@@ -45,6 +69,8 @@ export function useCreateChildComment() {
     dispatch(actions.createChildComment(comment));
   }, [dispatch]);
 }
+
+
 
 export function useMoveBoardStatus() {
   const dispatch = useDispatch();

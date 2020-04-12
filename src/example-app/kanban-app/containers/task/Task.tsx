@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Id } from '../../model';
-import { useTask } from '../../hooks/entity-hooks';
+import { useTask, useUpdateTask, useDeleteTask } from '../../hooks/entity-hooks';
 import { Task as TaskPresentation } from '../../components/task';
 
 import TaskComments from './TaskComments';
@@ -12,6 +12,8 @@ export interface Props {
 
 export default function Task({ id }: Props) {
   const task = useTask(id);
+  const updateTask = useUpdateTask();
+  const deleteTask = useDeleteTask();
 
   if (!task) {
     return null;
@@ -28,6 +30,8 @@ export default function Task({ id }: Props) {
       tagIds={task?.tagIds}
       rootCommentIds={task?.rootCommentIds}
       Comments={TaskComments}
+      updateTask={updateTask}
+      deleteTask={deleteTask}
     />
   );
 }

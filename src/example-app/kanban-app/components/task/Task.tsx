@@ -1,11 +1,13 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import Dialog from '@material-ui/core/Dialog';
+import Paper from '@material-ui/core/Paper';
 
 import { Id } from '../../model';
-
+import { OptionsPopper } from '../../components/options-popper';
+import TaskOptions from './TaskOptions';
 import { useStyles } from './styles';
+import TaskEditorForm from './TaskEditorForm';
 
 export interface Props {
   id: Id,
@@ -17,6 +19,8 @@ export interface Props {
   tagIds?: Id[],
   Comments?: ComponentType<CommentsProps>,
   rootCommentIds?: Id[],
+  updateTask?: (id: Id, data: { title?: string, description?: string }) => void,
+  deleteTask?: (id: Id) => void,
 }
 
 export interface CommentsProps {
@@ -27,26 +31,58 @@ export interface CommentsProps {
 export default function Task({
   id,
   title,
+  description,
   statusId,
   creatorId,
   assigneeId,
   tagIds,
   rootCommentIds = [],
   Comments,
+  updateTask,
+  deleteTask,
 }: Props) {
   const classes = useStyles();
+
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const openEditor = () => setIsEditorOpen(true);
+  const closeEditor = () => setIsEditorOpen(false);
+  const handleSubmitEdit = (title: string, description: string) => {
+    if (updateTask) {
+      updateTask(id, { title, description });
+    }
+    closeEditor();
+  };
+  const handleClickDelete = () => {
+    if (deleteTask) {
+      deleteTask(id);
+    }
+  };
 
   return (
     <div className={classes.task}>
       <div className={classes.taskHeader}>
         <Typography>{title}</Typography>
 
-        <span>
-          <IconButton size="small">
-            <MoreHoriz fontSize="small" />
-          </IconButton>
-        </span>
+        <OptionsPopper>
+          <TaskOptions
+            onClickEdit={openEditor}
+            onClickDelete={handleClickDelete}
+          />
+        </OptionsPopper>
       </div>
+
+      {isEditorOpen &&
+        <Dialog open={isEditorOpen}>
+          <Paper className={classes.editorDialog}>
+            <TaskEditorForm
+              title={title}
+              description={description}
+              onSubmit={handleSubmitEdit}
+              onCancel={closeEditor}
+            />
+          </Paper>
+        </Dialog>
+      }
 
       <div>
         {Comments &&
@@ -56,3 +92,4 @@ export default function Task({
     </div>
   );
 }
+
