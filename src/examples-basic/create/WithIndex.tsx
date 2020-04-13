@@ -96,14 +96,12 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
         placeholder="Item name:"
         value={name}
         onChange={e => setName(e.target.value)}
-        margin="dense"
       />
 
       <TextField
         placeholder="Index:"
         value={index}
         onChange={e => e && setIndex(Number(e.target.value))}
-        margin="dense"
         type="number"
       />
 
