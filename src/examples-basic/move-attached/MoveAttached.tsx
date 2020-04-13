@@ -54,6 +54,10 @@ const { selectors, reducer, actionCreators } = normalizedSlice<EntitiesState>(sc
 
 const initialState: EntitiesState = {
   entities: {
+    list: {
+      'l1': { title: 'List 1', itemIds: ['i1', 'i2', 'i3'] },
+      'l2': { title: 'List 2', itemIds: ['i4', 'i5', 'i6'] },
+    },
     item: {
       'i1': { name: 'Item 1', listId: 'l1' },
       'i2': { name: 'Item 2', listId: 'l1' },
@@ -61,10 +65,6 @@ const initialState: EntitiesState = {
       'i4': { name: 'Item 3', listId: 'l3' },
       'i5': { name: 'Item 3', listId: 'l3' },
       'i6': { name: 'Item 3', listId: 'l3' },
-    },
-    list: {
-      'l1': { title: 'List 1', itemIds: ['i1', 'i2', 'i3'] },
-      'l2': { title: 'List 2', itemIds: ['i4', 'i5', 'i6'] },
     }
   },
   ids: {
@@ -141,8 +141,7 @@ export default function MoveAttached() {
   return (
     <Layout
       main={main}
-      state={state.entities.list}
-      stateName="state.entities"
+      state={state}
     />
   )
 }

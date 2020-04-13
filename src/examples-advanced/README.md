@@ -4,4 +4,3 @@ Example Advanced
 - composite tree
 - cascading delete
 - cascading delete, recursive
-

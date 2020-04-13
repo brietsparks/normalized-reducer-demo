@@ -26,6 +26,7 @@ const App: React.FC = () => {
       <AttachDetach.OneToOne/>
       <AttachDetach.OneToMany/>
       <MoveAttached/>
+      <Delete.WithAttachments/>
 
       {/*<KanbanApp/>*/}
       {/*<CompositeTree/>*/}
