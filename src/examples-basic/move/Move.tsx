@@ -70,6 +70,9 @@ export default function Example() {
         {ids.map((id, index) => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });
 
+          const moveUp = () => dispatch(actionCreators.move('item', index, index - 1));
+          const moveDown = () => dispatch(actionCreators.move('item', index, index + 1));
+
           return (
             <AnimatedItem key={id} index={index}>
               <div className={classNames.card}>
@@ -80,12 +83,12 @@ export default function Example() {
                       <Typography>{item?.name}</Typography>
                       <div>
                         <div>
-                          <IconButton onClick={() => dispatch(actionCreators.move('item', index, index - 1))}>
+                          <IconButton onClick={moveUp}>
                             <UpIcon/>
                           </IconButton>
                         </div>
                         <div>
-                          <IconButton onClick={() => dispatch(actionCreators.move('item', index, index + 1))}>
+                          <IconButton onClick={moveDown}>
                             <DownIcon/>
                           </IconButton>
                         </div>

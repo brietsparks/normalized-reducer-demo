@@ -1,6 +1,6 @@
-import ManyToMany from './many-to-many';
-import OneToOne from './one-to-one';
-import OneToMany from './one-to-many';
+import ManyToMany from './ManyToMany';
+import OneToOne from './OneToOne';
+import OneToMany from './OneToMany';
 
 export default {
   ManyToMany,

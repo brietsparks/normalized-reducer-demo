@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { ChangeEvent, useReducer } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import normalizedSlice, { Schema, Id } from 'normalized-reducer';
@@ -56,17 +56,17 @@ export default function Example() {
         {ids.map(id => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });
 
-          if (!item) {
-            return null;
-          }
+          const update = (e: ChangeEvent<HTMLInputElement>) => {
+            dispatch(actionCreators.update('item', id, { name: e.target.value }));
+          };
 
           return (
             <Card
               isSelectable={false}
               body={
                 <TextField
-                  value={item.name}
-                  onChange={e => dispatch(actionCreators.update('item', id, { name: e.target.value }))}
+                  value={item?.name}
+                  onChange={update}
                   placeholder="Item name:"
                 />
               }

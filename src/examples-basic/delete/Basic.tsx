@@ -56,16 +56,14 @@ export default function Example() {
         {ids.map(id => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });
 
-          if (!item) {
-            return null;
-          }
+          const del = () => dispatch(actionCreators.delete('item', id));
 
           return (
             <Card
               isSelectable={false}
-              body={item.name}
+              body={item?.name}
               right={
-                <IconButton onClick={() => dispatch(actionCreators.delete('item', id))}>
+                <IconButton onClick={del}>
                   <DeleteIcon/>
                 </IconButton>
               }
