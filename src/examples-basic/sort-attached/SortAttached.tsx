@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import normalizedSlice, { Cardinalities, Id, Schema } from 'normalized-reducer';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
@@ -86,6 +87,15 @@ export default function MoveAttached() {
 
   const listIds = selectors.getIds(state, { type: 'list' });
 
+  const sortListItemsAsc = (listId: Id) => {
+    dispatch(actionCreators.sortAttached<Item>('list', listId, 'itemIds', (a, b) => (a.name > b.name ? 1 : -1)));
+  };
+
+  const sortListItemsDesc = (listId: Id) => {
+    dispatch(actionCreators.sortAttached<Item>('list', listId, 'itemIds', (a, b) => (a.name < b.name ? 1 : -1)));
+  };
+
+
   const classNames = useStyles();
 
   const main = (
@@ -94,32 +104,27 @@ export default function MoveAttached() {
         {listIds.map(listId => {
           const list = selectors.getEntity<List>(state, { type: 'list', id: listId });
 
-          const moveItemUp = (index: number) => {
-            dispatch(actionCreators.moveAttached('list', listId, 'itemIds', index, index - 1));
-          };
-
-          const moveItemDown = (index: number) => {
-            dispatch(actionCreators.moveAttached('list', listId, 'itemIds', index, index + 1));
-          };
+          const sortAsc = () => sortListItemsAsc(listId);
+          const sortDesc = () => sortListItemsDesc(listId);
 
           const body = (
             <div>
               <Typography className={classNames.listTitle}>{list?.title}</Typography>
 
+              <div className={classNames.buttons}>
+                <Button onClick={sortAsc}>Sort by Name Asc</Button>
+                <Button onClick={sortDesc}>Sort by Name Desc</Button>
+              </div>
+
               <PoseGroup>
                 {list?.itemIds.map((itemId, index) => {
                   const item = selectors.getEntity<Item>(state, { type: 'item', id: itemId });
 
-                  const moveUp = () => moveItemUp(index);
-                  const moveDown = () => moveItemDown(index);
-
                   return (
                     <AnimatedItem key={itemId} index={index}>
-                      <ItemViewer
-                        name={item?.name}
-                        moveUp={moveUp}
-                        moveDown={moveDown}
-                      />
+                      <div className={classNames.item}>
+                        <Typography>{item?.name}</Typography>
+                      </div>
                     </AnimatedItem>
                   )
                 })}
@@ -144,32 +149,4 @@ export default function MoveAttached() {
       state={state}
     />
   )
-}
-
-interface ItemProps {
-  name?: string,
-  moveUp: () => void,
-  moveDown: () => void,
-}
-
-function ItemViewer({ name, moveUp, moveDown }: ItemProps) {
-  const classNames = useStyles();
-
-  return (
-    <div className={classNames.item}>
-      <Typography>{name}</Typography>
-      <div>
-        <div>
-          <IconButton onClick={moveUp}>
-            <UpIcon/>
-          </IconButton>
-        </div>
-        <div>
-          <IconButton onClick={moveDown}>
-            <DownIcon/>
-          </IconButton>
-        </div>
-      </div>
-    </div>
-  );
 }

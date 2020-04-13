@@ -1,15 +1,12 @@
 import React, { useReducer } from 'react';
-import UpIcon from '@material-ui/icons/ArrowUpward';
-import DownIcon from '@material-ui/icons/ArrowDownward';
-import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 import posed, { PoseGroup } from 'react-pose';
-import normalizedSlice, { Id, Schema } from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
-import { Card } from '../../components/card';
-import { useStyles } from './style';
+import { Card, CardsContainer } from '../../components/card';
+import { useStyles } from './styles';
 
 interface Item {
   name: string
@@ -62,40 +59,30 @@ export default function Example() {
 
   const ids = selectors.getIds(state, { type: 'item' });
 
+  const sortAsc = () => {
+    dispatch(actionCreators.sort<Item>('item', (a, b) => (a.name > b.name ? 1 : -1)));
+  };
+
+  const sortDesc = () => {
+    dispatch(actionCreators.sort<Item>('item', (a, b) => (a.name < b.name ? 1 : -1)));
+  };
+
   const classNames = useStyles();
 
   const main = (
     <Container maxWidth="xs">
+      <div className={classNames.buttons}>
+        <Button onClick={sortAsc}>Sort by Name Asc</Button>
+        <Button onClick={sortDesc}>Sort by Name Desc</Button>
+      </div>
+
       <PoseGroup>
         {ids.map((id, index) => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });
-
-          const moveUp = () => dispatch(actionCreators.move('item', index, index - 1));
-          const moveDown = () => dispatch(actionCreators.move('item', index, index + 1));
-
           return (
             <AnimatedItem key={id} index={index}>
               <div className={classNames.card}>
-                <Card
-                  isSelectable={false}
-                  body={
-                    <div className={classNames.body}>
-                      <Typography>{item?.name}</Typography>
-                      <div>
-                        <div>
-                          <IconButton onClick={moveUp}>
-                            <UpIcon/>
-                          </IconButton>
-                        </div>
-                        <div>
-                          <IconButton onClick={moveDown}>
-                            <DownIcon/>
-                          </IconButton>
-                        </div>
-                      </div>
-                    </div>
-                  }
-                />
+                <Card body={item?.name} isSelectable={false}/>
               </div>
             </AnimatedItem>
           )
