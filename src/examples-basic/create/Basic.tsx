@@ -1,15 +1,15 @@
 import React, { useReducer, useState } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/OutlinedInput';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
-
+import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/AddCircle';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Container from '@material-ui/core/Container';
 import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 
-import { Layout } from '../components/layout';
-import { Card, CardsContainer } from '../components/card';
-import { StateViewer } from '../components/state-viewer';
-import { randomString } from '../util';
+
+import { Layout } from '../../components/layout';
+import { Card, CardsContainer } from '../../components/card';
+import { randomString } from '../../util';
 
 interface Item {
   name: string
@@ -17,7 +17,7 @@ interface Item {
 
 const schema: Schema = {
   'item': {
-    // relation schemas would go here
+    // the minimum entity schema is an empty object
   }
 };
 
@@ -48,7 +48,7 @@ export default function Example() {
   };
 
   const main = (
-    <div style={{ width: 300 }}>
+    <Container maxWidth="xs">
       <NewItemForm onSubmit={createItem} />
 
       <hr/>
@@ -57,11 +57,11 @@ export default function Example() {
         {ids.map(id => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });
           return (
-            <Card body={item?.name}/>
+            <Card body={item?.name} isSelectable={false}/>
           )
         })}
       </CardsContainer>
-    </div>
+    </Container>
   );
 
   return (
@@ -78,31 +78,32 @@ interface NewItemFormProps {
 
 function NewItemForm({ onSubmit }: NewItemFormProps) {
   const [name, setName] = useState('');
+  const cleanName = name.trim();
 
   const handleSubmit = () => {
-    if (!!name) {
-      onSubmit(name);
+    if (!!cleanName) {
+      onSubmit(cleanName);
       setName('');
     }
   };
 
   return (
     <div>
-      <Input
+      <TextField
         placeholder="Item name:"
         value={name}
         onChange={e => setName(e.target.value)}
-        // variant="outlined"
         margin="dense"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleSubmit} color="primary" disabled={!cleanName}>
+                <AddIcon/>
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
       />
-
-      <Button
-        onClick={handleSubmit}
-        disabled={!name}
-        variant="contained"
-        color="primary"
-        disableElevation
-      ><AddIcon/></Button>
     </div>
   );
 }

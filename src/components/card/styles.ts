@@ -40,7 +40,11 @@ const deriveBorderColor = (args: Args) => {
 };
 
 const deriveHoveredBorderColor = (args: Args) => {
-  if (!args.isSelectable || args.isSelected) {
+  if (!args.isSelectable) {
+    return '#fff';
+  }
+
+  if (args.isSelected) {
     return blueGrey['500'];
   }
 
