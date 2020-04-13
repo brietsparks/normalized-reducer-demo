@@ -12,6 +12,7 @@ import { Move } from './examples-basic/move';
 import { MoveAttached } from './examples-basic/move-attached';
 import { Sort } from './examples-basic/sort';
 import { SortAttached } from './examples-basic/sort-attached';
+import { SetState }  from './examples-basic/set-state';
 // import CompositeTree from './examples-advanced/composite-tree';
 
 const App: React.FC = () => {
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       <Delete.WithAttachments/>
       <Sort/>
       <SortAttached/>
+      <SetState/>
 
       {/*<KanbanApp/>*/}
       {/*<CompositeTree/>*/}

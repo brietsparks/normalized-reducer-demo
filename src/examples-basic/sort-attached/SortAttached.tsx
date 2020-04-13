@@ -4,9 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import UpIcon from '@material-ui/icons/ArrowUpward';
-import DownIcon from '@material-ui/icons/ArrowDownward';
 import posed, { PoseGroup } from 'react-pose';
 
 import { Card, CardsContainer } from '../../components/card';
