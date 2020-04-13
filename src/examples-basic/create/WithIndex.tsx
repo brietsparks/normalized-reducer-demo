@@ -32,13 +32,26 @@ interface State {
 
 const {
   reducer,
-  emptyState,
   actionCreators,
   selectors
 } = normalizedSlice<State>(schema);
 
+const initialState = {
+  entities: {
+    item: {
+      'i1': { name: 'Lorem' },
+      'i2': { name: 'Ispum' },
+      'i3': { name: 'Dolor' },
+      'i4': { name: 'Sit Amet' }
+    }
+  },
+  ids: {
+    item: ['i1', 'i2', 'i3', 'i4']
+  }
+};
+
 export default function Example() {
-  const [state, dispatch] = useReducer(reducer, emptyState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const ids = selectors.getIds(state, { type: 'item' });
 
@@ -77,7 +90,7 @@ interface NewItemFormProps {
 }
 
 function NewItemForm({ onSubmit }: NewItemFormProps) {
-  const [index, setIndex] = useState();
+  const [index, setIndex] = useState(2);
   const [name, setName] = useState('');
   const cleanName = name.trim();
 
