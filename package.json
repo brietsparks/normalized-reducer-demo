@@ -1,5 +1,5 @@
 {
-  "name": "relational-reducer-examples-1",
+  "name": "normalized-reducer-demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
