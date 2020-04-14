@@ -7369,9 +7369,9 @@ normalize-url@^3.0.0:
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
 normalized-reducer@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/normalized-reducer/-/normalized-reducer-0.3.1.tgz#79d11d794590c922b2b59bdd448d63e4684cd5c7"
-  integrity sha512-jPwPxYXsk+SRjO3X2ArwKJ+pVzxpldZoQyDQWb8JIfF4cakONFr9jLNx6frcP0rRRKFy3td1J1FU3YqnhKXfeQ==
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/normalized-reducer/-/normalized-reducer-0.3.2.tgz#16b0dcadc1501c14b12241d9de69d2b03a48acea"
+  integrity sha512-2MCejlGID41Dbe4k24VeA/QuKg6+XxSqI6c5RG4yCnBp1aRwGTZGYWJqR967Fvod0jgpfP+mzfPY+KUjV0YWWQ==
 
 npm-bundled@^1.0.1:
   version "1.0.6"
