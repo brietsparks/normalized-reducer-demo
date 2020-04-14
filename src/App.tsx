@@ -14,6 +14,7 @@ import { Sort } from './examples-basic/sort';
 import { SortAttached } from './examples-basic/sort-attached';
 import { SetState }  from './examples-basic/set-state';
 
+import { NodeTree } from './examples-advanced/node-tree';
 import { BatchActions } from './examples-advanced/batch-actions';
 // import CompositeTree from './examples-advanced/composite-tree';
 
@@ -22,8 +23,9 @@ const App: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline/>
 
+      <NodeTree/>
       <BatchActions/>
-      
+
       <Create.Basic/>
       <Create.WithIndex/>
       <Update/>
