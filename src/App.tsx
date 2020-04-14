@@ -13,6 +13,8 @@ import { MoveAttached } from './examples-basic/move-attached';
 import { Sort } from './examples-basic/sort';
 import { SortAttached } from './examples-basic/sort-attached';
 import { SetState }  from './examples-basic/set-state';
+
+import { BatchActions } from './examples-advanced/batch-actions';
 // import CompositeTree from './examples-advanced/composite-tree';
 
 const App: React.FC = () => {
@@ -20,6 +22,8 @@ const App: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline/>
 
+      <BatchActions/>
+      
       <Create.Basic/>
       <Create.WithIndex/>
       <Update/>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { createStore } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 
-import { randomString } from '../util';
+import { randomString } from '../../util';
 
 export interface Group {
   id: Id;

@@ -37,15 +37,15 @@ const {
 } = normalizedSlice<State>(schema);
 
 const initialState = {
+  ids: {
+    item: ['i1', 'i2', 'i3']
+  },
   entities: {
     item: {
       'i1': { name: 'Foo' },
       'i2': { name: 'Bar' },
       'i3': { name: 'Baz' }
     }
-  },
-  ids: {
-    item: ['i1', 'i2', 'i3']
   }
 };
 
@@ -107,7 +107,10 @@ export default function Example() {
   return (
     <Layout
       main={main}
-      state={state}
+      state={{
+        ids: state.ids,
+        entities: state.entities,
+      }}
     />
   )
 }
