@@ -4,18 +4,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from './theme';
 // import Example from './components/card/Example';
-import Create from './examples-basic/create';
-import AttachDetach from './examples-basic/attach-detach';
-import { Update } from './examples-basic/update';
-import Delete from './examples-basic/delete';
-import { Move } from './examples-basic/move';
-import { MoveAttached } from './examples-basic/move-attached';
-import { Sort } from './examples-basic/sort';
-import { SortAttached } from './examples-basic/sort-attached';
-import { SetState }  from './examples-basic/set-state';
+import Create from './demo-actions/create';
+import AttachDetach from './demo-actions/attach-detach';
+import { Update } from './demo-actions/update';
+import Delete from './demo-actions/delete';
+import { Move } from './demo-actions/move';
+import { MoveAttached } from './demo-actions/move-attached';
+import { Sort } from './demo-actions/sort';
+import { SortAttached } from './demo-actions/sort-attached';
+import { SetState }  from './demo-actions/set-state';
 
-import { NodeTree } from './examples-advanced/node-tree';
-import { BatchActions } from './examples-advanced/batch-actions';
+import { NodeTree } from './example-features/node-tree';
+import { BatchActions } from './demo-actions/batch-actions';
 // import CompositeTree from './examples-advanced/composite-tree';
 
 const App: React.FC = () => {
@@ -24,7 +24,6 @@ const App: React.FC = () => {
       <CssBaseline/>
 
       <NodeTree/>
-      <BatchActions/>
 
       <Create.Basic/>
       <Create.WithIndex/>
@@ -38,6 +37,7 @@ const App: React.FC = () => {
       <Delete.WithAttachments/>
       <Sort/>
       <SortAttached/>
+      <BatchActions/>
       <SetState/>
 
       {/*<KanbanApp/>*/}

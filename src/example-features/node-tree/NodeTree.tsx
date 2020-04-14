@@ -62,16 +62,8 @@ const initialState: State = {
         value: 'Boboddy - what does the first b stand for?',
       },
       'c1.1': {
-        parentId: 'c1', childIds: ['c1.1.1', 'c1.1.2'],
+        parentId: 'c1',
         value: 'Biznus!'
-      },
-      'c1.1.1': {
-        parentId: 'c1.1',
-        value: 'I LIKE IT',
-      },
-      'c1.1.2': {
-        parentId: 'c1.1',
-        value: 'we need a new manager',
       },
       'c2': {
         childIds: ['c2.1'],
@@ -92,7 +84,7 @@ const initialState: State = {
     }
   },
   ids: {
-    comment: ['c1', 'c2']
+    comment: ['c1', 'c2', 'c1.1', 'c2.1', 'c2.1.1', 'c2.1.1.1']
   }
 };
 
@@ -124,12 +116,10 @@ function Main() {
     dispatch(actionCreators.create('comment', id, { value }));
   };
 
-  const classNames = useStyles();
-
   const main = (
     <Container maxWidth="sm">
       <div>
-        <div className={classNames.rootComments}>
+        <div>
           {ids.map(id => (
             <CommentViewer key={id} id={id} />
           ))}
