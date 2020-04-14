@@ -1,8 +1,6 @@
-Example Advanced
-- use with normalizr
+Example features use cases
+- tag list
+- comment tree (node-tree)
+- file directory tree (composite-tree)
+- integration with normalizr
 - merging fetched data into existing data
-- batch actions
-- simple tree
-- composite tree
-- cascading delete
-- cascading delete, recursive

@@ -1,4 +1,4 @@
-Examples Simple
+Demo Actions
 - create
 - create at index
 - update: patch
@@ -8,7 +8,10 @@ Examples Simple
 - attach/detach one-to-many
 - attach/detach many-to-many
 - move attached
-- delete with attachments
+- delete with detachments
+- delete cascade
+- delete cascade recursive
 - sort
 - sort attached
+- batch
 - set state

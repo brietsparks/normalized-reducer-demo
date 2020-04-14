@@ -14,7 +14,7 @@ import { Sort } from './demo-actions/sort';
 import { SortAttached } from './demo-actions/sort-attached';
 import { SetState }  from './demo-actions/set-state';
 
-import { NodeTree } from './example-features/node-tree';
+import { CommentTree } from './example-features/comment-tree';
 import { BatchActions } from './demo-actions/batch-actions';
 // import CompositeTree from './examples-advanced/composite-tree';
 
@@ -23,7 +23,7 @@ const App: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline/>
 
-      <NodeTree/>
+      <CommentTree/>
 
       <Create.Basic/>
       <Create.WithIndex/>
