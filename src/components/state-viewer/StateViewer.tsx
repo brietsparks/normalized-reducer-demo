@@ -16,6 +16,8 @@ function StateView({ state, name = 'state', level = 5 }: Props) {
       theme="monokai"
       collapsed={level}
       displayObjectSize={false}
+      enableClipboard={false}
+      displayDataTypes={false}
     />
   )
 }

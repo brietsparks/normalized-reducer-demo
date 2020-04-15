@@ -8,6 +8,8 @@ import FolderIcon from '@material-ui/icons/Folder';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import FileIcon from '@material-ui/icons/InsertDriveFile';
 
+import { Layout } from '../../components/layout';
+
 import { randomString } from '../../util';
 
 export interface Directory {
@@ -108,6 +110,7 @@ export default function Example() {
 
 function RootDirectoryNodes() {
   const rootIds = useSelector<State, Id[]>(state => getRootDirectoryIds(state));
+  const state = useSelector(state => state);
 
   const dispatch = useDispatch();
   const createRootDirectory = (name: string) => {
@@ -115,7 +118,7 @@ function RootDirectoryNodes() {
     dispatch(actionCreators.create('directory', id, { name }));
   };
 
-  return (
+  const main = (
     <div>
       {rootIds.map(id => (
         <DirectoryNode key={id} id={id}/>
@@ -124,6 +127,13 @@ function RootDirectoryNodes() {
       <Form onSubmit={createRootDirectory} type="Directory"/>
     </div>
   );
+
+  return (
+    <Layout
+      main={main}
+      state={state}
+    />
+  )
 }
 
 interface DirectoryCardProps {
