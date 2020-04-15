@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Paper from '@material-ui/core/Paper';
 
 import { Id } from '../../model';
-import { OptionsPopper } from '../../components/options-popper';
+import { OptionsPopper } from '../options-popper';
 import TaskOptions from './TaskOptions';
 import { useStyles } from './styles';
 import TaskEditorForm from './TaskEditorForm';

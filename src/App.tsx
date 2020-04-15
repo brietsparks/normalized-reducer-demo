@@ -3,7 +3,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from './theme';
-// import Example from './components/card/Example';
 import Create from './demo-actions/create';
 import AttachDetach from './demo-actions/attach-detach';
 import { Update } from './demo-actions/update';
@@ -42,9 +41,6 @@ const App: React.FC = () => {
       <SortAttached/>
       <BatchActions/>
       <SetState/>
-
-      {/*<KanbanApp/>*/}
-      {/*<CompositeTree/>*/}
     </MuiThemeProvider>
   );
 };

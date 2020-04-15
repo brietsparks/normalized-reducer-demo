@@ -11,6 +11,7 @@ export interface Props {
   state?: State
 }
 export default function StoreProvider({ children, state = emptyState }: Props) {
+  // @ts-ignore
   const store = createStore(reducer, state);
 
   return (

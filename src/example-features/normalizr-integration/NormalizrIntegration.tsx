@@ -1,11 +1,10 @@
 import React, { useReducer } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import makeNormalizedSlice, { Cardinalities, Schema } from 'normalized-reducer';
+import makeNormalizedSlice, { Cardinalities, Schema, fromNormalizr, NormalizrOutput } from 'normalized-reducer';
 import { normalize } from 'normalizr';
 
 import normalizrSchema from './normalizr-schema';
-import { deriveStateFromNormalizrData, Input } from './adapter';
 import { useStyles } from './styles';
 import { Layout } from '../../components/layout';
 import { StateViewer } from '../../components/state-viewer';
@@ -125,17 +124,17 @@ const schema: Schema = {
 };
 
 const {
-  actionCreators,
-  reducer,
-  selectors,
-  emptyState,
-  actionTypes,
+  // actionCreators,
+  // reducer,
+  // selectors,
+  // emptyState,
+  // actionTypes,
 } = makeNormalizedSlice(schema);
 
 export default function NormalizrIntegration() {
-  const normalizedData: Input = normalize(denormalizedData, normalizrSchema);
-  const initialState = deriveStateFromNormalizrData(normalizedData);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const normalizedData: NormalizrOutput = normalize(denormalizedData, normalizrSchema);
+  const initialState = fromNormalizr(normalizedData);
+
   const classNames = useStyles();
 
   return (
