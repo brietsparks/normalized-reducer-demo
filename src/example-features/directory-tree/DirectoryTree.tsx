@@ -1,16 +1,24 @@
-import normalizedSlice, { Id, State as BaseState } from 'normalized-reducer';
 import React, { useState } from 'react';
 import { createStore } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import Typography from '@material-ui/core/Typography';
+import FolderClosedIcon from '@material-ui/icons/Folder';
+import FolderOpenedIcon from '@material-ui/icons/FolderOpen';
 import FileIcon from '@material-ui/icons/InsertDriveFile';
+import NewFolderIcon from '@material-ui/icons/CreateNewFolder';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import NewFileIcon from '@material-ui/icons/NoteAdd';
+import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import OptionsIcon from '@material-ui/icons/MoreHoriz';
+import normalizedSlice, { Id, State as BaseState } from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
-
 import { randomString } from '../../util';
+import { useStyles } from './styles';
+import './override.css';
 
 export interface Directory {
   id: Id;
@@ -28,12 +36,28 @@ export interface File {
 
 const schema = {
   directory: {
-    parentDirectoryId: { type: 'directory', cardinality: 'one', reciprocal: 'childDirectoryIds' },
-    childDirectoryIds: { type: 'directory', cardinality: 'many', reciprocal: 'parentDirectoryId' },
-    fileIds: { type: 'file', cardinality: 'many', reciprocal: 'directoryId' }
+    parentDirectoryId: {
+      type: 'directory',
+      cardinality: 'one',
+      reciprocal: 'childDirectoryIds'
+    },
+    childDirectoryIds: {
+      type: 'directory',
+      cardinality: 'many',
+      reciprocal: 'parentDirectoryId'
+    },
+    fileIds: {
+      type: 'file',
+      cardinality: 'many',
+      reciprocal: 'directoryId'
+    }
   },
   file: {
-    directoryId: { type: 'directory', cardinality: 'one', reciprocal: 'fileIds' }
+    directoryId: {
+      type: 'directory',
+      cardinality: 'one',
+      reciprocal: 'fileIds'
+    }
   }
 };
 
@@ -90,7 +114,7 @@ const initialState: State = {
   }
 };
 
-const getRootDirectoryIds = (state: State) => {
+const getTopLevelDirectoryIds = (state: State) => {
   const ids = selectors.getIds(state, { type: 'directory' });
   return ids.filter((id: Id) => {
     const directory = selectors.getEntity<Directory>(state, { type: 'directory', id });
@@ -103,28 +127,28 @@ const store = createStore(reducer, initialState);
 export default function Example() {
   return (
     <Provider store={store}>
-      <RootDirectoryNodes/>
+      <TopLevelDirectoryNodes/>
     </Provider>
   );
 }
 
-function RootDirectoryNodes() {
-  const rootIds = useSelector<State, Id[]>(state => getRootDirectoryIds(state));
+function TopLevelDirectoryNodes() {
+  const topLevelIds = useSelector<State, Id[]>(state => getTopLevelDirectoryIds(state));
   const state = useSelector(state => state);
 
   const dispatch = useDispatch();
-  const createRootDirectory = (name: string) => {
+  const createTopLevelDirectory = (name: string) => {
     const id = randomString();
     dispatch(actionCreators.create('directory', id, { name }));
   };
 
   const main = (
     <div>
-      {rootIds.map(id => (
+      {topLevelIds.map(id => (
         <DirectoryNode key={id} id={id}/>
       ))}
 
-      <Form onSubmit={createRootDirectory} type="Directory"/>
+      <Form onSubmit={createTopLevelDirectory} placeholder="New Top Level Directory"/>
     </div>
   );
 
@@ -146,13 +170,46 @@ function DirectoryNode({ id }: DirectoryCardProps) {
     id
   }));
 
+  const [isOpen, setIsOpen] = useState(!directory?.parentDirectoryId);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
+
+  const [isOptionsShown, setIsOptionsShown] = useState(false);
+  const showOptions = () => setIsOptionsShown(true);
+  const hideOptions = () => setIsOptionsShown(false);
+
+  const [isFileFormShown, setIsFileFormShown] = useState(false);
+  const [isDirectoryFormShown, setIsDirectoryFormShown] = useState(false);
+  const showFileForm = () => {
+    setIsFileFormShown(true);
+    setIsDirectoryFormShown(false);
+    setIsOptionsShown(false);
+  };
+  const showDirectoryForm = () => {
+    setIsDirectoryFormShown(true);
+    setIsFileFormShown(false);
+    setIsOptionsShown(false);
+  };
+  const hideFileForm = () => setIsFileFormShown(false);
+  const hideDirectoryForm = () => setIsDirectoryFormShown(false);
+
+  const hideFormAndOptions = () => {
+    hideFileForm();
+    hideDirectoryForm();
+    hideOptions();
+  };
+
   const dispatch = useDispatch();
+
+  const classNames = useStyles();
+
   const createChildDirectory = (name: string) => {
     const childId = randomString();
     dispatch(actionCreators.batch(
       actionCreators.create('directory', childId, { name }),
       actionCreators.attach('directory', childId, 'parentDirectoryId', id)
     ));
+    hideFormAndOptions();
   };
   const createFile = (name: string) => {
     const fileId = randomString();
@@ -160,6 +217,7 @@ function DirectoryNode({ id }: DirectoryCardProps) {
       actionCreators.create('file', fileId, { name }),
       actionCreators.attach('file', fileId, 'directoryId', id)
     ));
+    hideFormAndOptions();
   };
 
   if (!directory) {
@@ -168,69 +226,117 @@ function DirectoryNode({ id }: DirectoryCardProps) {
 
   return (
     <div>
-      <p>{directory.name}</p>
+      <div className={classNames.nodeLine}>
+        {!isOpen &&
+        <IconButton onClick={open}><FolderClosedIcon/></IconButton>
+        }
 
-      <div>
-        <div>
-          {directory.fileIds?.map(fileId => (
-            <FileCard key={fileId} id={fileId}/>
-          ))}
-          <Form onSubmit={createFile} type="File"/>
+        {isOpen &&
+        <IconButton onClick={close}><FolderOpenedIcon/></IconButton>
+        }
+
+        <Typography>{directory.name}</Typography>
+      </div>
+
+      {isOpen &&
+      <div className={classNames.nodeChildren}>
+        <div className={classNames.options}>
+          <span>
+            <IconButton onClick={showOptions}><OptionsIcon/></IconButton>
+          </span>
+
+          {(isOptionsShown || isDirectoryFormShown || isFileFormShown) &&
+          <ClickAwayListener onClickAway={hideFormAndOptions}>
+            <div>
+              {isOptionsShown &&
+              <span>
+                <IconButton onClick={showDirectoryForm}><NewFolderIcon/></IconButton>
+                <IconButton onClick={showFileForm}><NewFileIcon/></IconButton>
+              </span>
+              }
+
+              {isDirectoryFormShown &&
+              <Form onSubmit={createChildDirectory} placeholder="New Folder:"/>
+              }
+
+              {isFileFormShown &&
+              <Form onSubmit={createFile} placeholder="New File:"/>
+              }
+            </div>
+          </ClickAwayListener>
+          }
         </div>
 
+        <div>
+          {directory.fileIds?.map(fileId => (
+            <FileNode key={fileId} id={fileId}/>
+          ))}
+        </div>
         <div>
           {directory.childDirectoryIds?.map(childDirectoryId => (
             <DirectoryNode key={childDirectoryId} id={childDirectoryId}/>
           ))}
-          <Form onSubmit={createChildDirectory} type="Directory"/>
         </div>
       </div>
+      }
     </div>
   );
 }
 
-interface FileCardProps {
+interface FileNodeProps {
   id: Id
 }
 
-function FileCard({ id }: FileCardProps) {
+function FileNode({ id }: FileNodeProps) {
   const file = useSelector<State, File | undefined>(state => selectors.getEntity<File>(state, { type: 'file', id }));
+
+  const classNames = useStyles();
 
   if (!file) {
     return null;
   }
 
   return (
-    <div>
-      <p>{file.name}</p>
+    <div className={`${classNames.nodeLine} directory-file`}>
+      <FileIcon/>
+      <Typography>{file.name}</Typography>
     </div>
   );
 }
 
 interface FormProps {
   onSubmit: (name: string) => void,
-  type: string
+  placeholder: string
 }
 
-function Form({ onSubmit, type }: FormProps) {
+function Form({ onSubmit, placeholder }: FormProps) {
   const [name, setName] = useState('');
+  const cleanName = name.trim();
 
   const handleClickSubmit = () => {
-    onSubmit(name);
-    setName('');
+    if (cleanName) {
+      onSubmit(cleanName);
+      setName('');
+    }
   };
 
   return (
     <div>
-      <input
+      <TextField
+        autoFocus
         value={name}
         onChange={e => setName(e.target.value)}
-        placeholder={`Add ${type}:`}
+        placeholder={placeholder}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleClickSubmit} color="primary" disabled={!cleanName}>
+                <AddIcon/>
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
       />
-      <button
-        onClick={handleClickSubmit}
-        disabled={!name}
-      >+ {type}</button>
     </div>
   );
 }

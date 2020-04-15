@@ -23,8 +23,8 @@ const App: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline/>
 
-      <NormalizrIntegration/>
       <DirectoryTree/>
+      <NormalizrIntegration/>
       <CommentTree/>
 
       <Create.Basic/>
