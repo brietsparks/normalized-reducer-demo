@@ -12,17 +12,18 @@ import { Move } from './demo-actions/move';
 import { MoveAttached } from './demo-actions/move-attached';
 import { Sort } from './demo-actions/sort';
 import { SortAttached } from './demo-actions/sort-attached';
+import { BatchActions } from './demo-actions/batch-actions';
 import { SetState }  from './demo-actions/set-state';
 
 import { CommentTree } from './example-features/comment-tree';
-import { BatchActions } from './demo-actions/batch-actions';
-// import CompositeTree from './examples-advanced/composite-tree';
+import { DirectoryTree } from './example-features/directory-tree';
 
 const App: React.FC = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline/>
 
+      <DirectoryTree/>
       <CommentTree/>
 
       <Create.Basic/>
