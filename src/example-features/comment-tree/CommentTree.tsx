@@ -174,7 +174,7 @@ function CommentViewer({ id, isLast }: CommentViewerProps) {
       const childId = randomString();
       dispatch(actionCreators.batch(
         actionCreators.create('comment', childId, { value }),
-        actionCreators.attach('comment', childId, 'parentId', id)
+        actionCreators.attach('comment', childId, 'parentId', id, { reciprocalIndex: 0 })
       ));
 
       closeReply();
