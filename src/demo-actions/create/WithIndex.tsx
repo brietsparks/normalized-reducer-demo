@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useRef, MutableRefObject } from 'react';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,6 +11,7 @@ import { Card, CardsContainer } from '../../components/card';
 import { randomString } from '../../util';
 import { useStyles } from './styles';
 import { useEnterHandler } from './hooks';
+import { ActionInfo } from '../../components/action-info';
 
 interface Item {
   name: string
@@ -63,9 +64,14 @@ export default function Example() {
 
   const main = (
     <Container maxWidth="xs">
-      <NewItemForm onSubmit={createItem} />
+      <ActionInfo
+        title="Create"
+        summary="Adds an entity to a collection at a given index"
+        docElemId="create"
+        example=""
+      />
 
-      <hr/>
+      <NewItemForm onSubmit={createItem} />
 
       <CardsContainer>
         {ids.map(id => {
@@ -97,18 +103,32 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
 
   const classNames = useStyles();
 
+  const nameInputRef = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
+  const indexInputRef = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
+
   const handleSubmit = () => {
     if (!!cleanName) {
       onSubmit(cleanName, index);
       setName('');
+      nameInputRef.current.focus();
     }
   };
 
-  const nameInputProps = useEnterHandler(handleSubmit);
-  const indexInputProps = useEnterHandler(handleSubmit);
+  const handleKeyPressName = useEnterHandler(handleSubmit, nameInputRef);
+  const handleKyPressIndex = useEnterHandler(handleSubmit, indexInputRef);
+
+  const nameInputProps = {
+    onKeyPress: handleKeyPressName,
+    ref: nameInputRef
+  };
+
+  const indexInputProps = {
+    onKeyPress: handleKyPressIndex,
+    ref: indexInputRef
+  };
 
   return (
-    <div className={classNames.indexFormButtons}>
+    <div className={classNames.form}>
       <TextField
         autoFocus
         inputProps={nameInputProps}

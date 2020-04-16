@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useRef, MutableRefObject } from 'react';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/AddCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -7,9 +7,9 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 
-
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
+import { ActionInfo, Label } from '../../components/action-info';
 import { randomString } from '../../util';
 import { useStyles } from './styles';
 import { useEnterHandler } from './hooks';
@@ -51,10 +51,17 @@ export default function Example() {
   };
 
   const main = (
-    <Container maxWidth="xs">
-      <NewItemForm onSubmit={createItem} />
+    <Container>
+      <ActionInfo
+        title="Create"
+        summary="Adds an entity to state."
+        docElemId="create"
+        example="actionCreators.create('item', id, { fieldA: 'arbitrary' , fieldB: 'anything' })"
+      />
 
-      <hr/>
+      <Label>Demo</Label>
+
+      <NewItemForm onSubmit={createItem} />
 
       <CardsContainer>
         {ids.map(id => {
@@ -83,14 +90,22 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
   const [name, setName] = useState('');
   const cleanName = name.trim();
 
+  const ref = useRef<HTMLInputElement>() as MutableRefObject<HTMLInputElement>;
+
   const handleSubmit = () => {
     if (!!cleanName) {
       onSubmit(cleanName);
       setName('');
+      ref.current.focus();
     }
   };
 
-  const inputProps = useEnterHandler(handleSubmit);
+  const handleKeyPress = useEnterHandler(handleSubmit, ref);
+
+  const inputProps = {
+    onKeyPress: handleKeyPress,
+    ref
+  };
 
   const classNames = useStyles();
 
