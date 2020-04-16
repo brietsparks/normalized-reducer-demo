@@ -10,6 +10,7 @@ import normalizedSlice, { Id, Schema } from 'normalized-reducer';
 import { Layout } from '../../components/layout';
 import { Card } from '../../components/card';
 import { useStyles } from './style';
+import { Info, Label } from '../../components/info';
 
 interface Item {
   name: string
@@ -65,7 +66,17 @@ export default function Example() {
   const classNames = useStyles();
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Move"
+        summary="Change the ordinal position of an entity with respect to its top-level collection"
+        action="move"
+        docElemId="move"
+        example="actionCreators.move('item', 1, 3)"
+      />
+
+      <Label>Demo:</Label>
+
       <PoseGroup>
         {ids.map((id, index) => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });

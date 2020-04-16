@@ -5,6 +5,7 @@ import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
+import { Info, Label } from '../../components/info';
 
 interface Item {
   name: string
@@ -51,7 +52,17 @@ export default function Example() {
   const ids = selectors.getIds(state, { type: 'item' });
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Update"
+        summary="Update an existing entity."
+        action="update"
+        docElemId="update"
+        example="actionCreators.update('item', 'i1', { name: 'x' })"
+      />
+
+      <Label>Demo:</Label>
+
       <CardsContainer>
         {ids.map(id => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });

@@ -9,6 +9,7 @@ import posed, { PoseGroup } from 'react-pose';
 import { Card, CardsContainer } from '../../components/card';
 import { useStyles } from './styles';
 import { Layout } from '../../components/layout';
+import { Info, Label } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -96,7 +97,17 @@ export default function MoveAttached() {
   const classNames = useStyles();
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Sort attached"
+        summary="Sort an attached entity collection"
+        action="sortAttached"
+        docElemId="sortAttached"
+        example="actionCreators.sortAttached('list', 'l1', 'itemIds', (a, b) => (a.name > b.name ? 1 : -1))"
+      />
+
+      <Label>Demo:</Label>
+
       <CardsContainer>
         {listIds.map(listId => {
           const list = selectors.getEntity<List>(state, { type: 'list', id: listId });

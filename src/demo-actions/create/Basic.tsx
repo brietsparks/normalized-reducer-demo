@@ -9,7 +9,7 @@ import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
-import { ActionInfo, Label } from '../../components/action-info';
+import { Info, Label } from '../../components/info';
 import { randomString } from '../../util';
 import { useStyles } from './styles';
 import { useEnterHandler } from './hooks';
@@ -52,14 +52,15 @@ export default function Example() {
 
   const main = (
     <Container>
-      <ActionInfo
+      <Info
         title="Create"
-        summary="Adds an entity to state."
+        summary="Add an entity to state."
+        action="create"
         docElemId="create"
         example="actionCreators.create('item', id, { fieldA: 'arbitrary' , fieldB: 'anything' })"
       />
 
-      <Label>Demo</Label>
+      <Label>Demo:</Label>
 
       <NewItemForm onSubmit={createItem} />
 

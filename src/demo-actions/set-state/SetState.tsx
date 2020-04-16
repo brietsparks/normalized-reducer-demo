@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 
 import { Layout } from '../../components/layout';
 import { useStyles } from './styles';
+import { Info, Label } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -76,7 +77,17 @@ export default function MoveAttached() {
   const classNames = useStyles();
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Set state"
+        summary="Set the normalized state"
+        action="setState"
+        docElemId="setState"
+        example="actionCreators.setState(myInitialState)"
+      />
+
+      <Label>Demo:</Label>
+
       <div className={classNames.buttons}>
         <Button onClick={setState}>Set State</Button>
         <Button onClick={clearState}>Clear State</Button>

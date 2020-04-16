@@ -11,6 +11,7 @@ import posed, { PoseGroup } from 'react-pose';
 import { Card, CardsContainer } from '../../components/card';
 import { useStyles } from './styles';
 import { Layout } from '../../components/layout';
+import { Info, Label } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -89,7 +90,17 @@ export default function MoveAttached() {
   const classNames = useStyles();
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Move attached"
+        summary="Change the ordinal position of an attached entity id"
+        action="moveAttached"
+        docElemId="moveAttached"
+        example="actionCreators.moveAttached('list', 'l1', 'itemIds', 2, 5)"
+      />
+
+      <Label>Demo:</Label>
+
       <CardsContainer>
         {listIds.map(listId => {
           const list = selectors.getEntity<List>(state, { type: 'list', id: listId });

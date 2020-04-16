@@ -6,6 +6,7 @@ import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
+import { Info, Label } from '../../components/info';
 
 interface Item {
   name: string
@@ -51,7 +52,17 @@ export default function Example() {
   const ids = selectors.getIds(state, { type: 'item' });
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Delete"
+        summary="Delete an entity"
+        action="delete"
+        docElemId="delete"
+        example="actionCreators.delete('item', 'i1')"
+      />
+
+      <Label>Demo:</Label>
+
       <CardsContainer>
         {ids.map(id => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });

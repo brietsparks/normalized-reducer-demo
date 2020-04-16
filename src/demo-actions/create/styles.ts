@@ -5,6 +5,9 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     marginBottom: theme.spacing(2),
   },
+  formItemName: {
+    marginRight: theme.spacing(1)
+  },
   formHint: {
     marginTop: theme.spacing(2.25),
     marginLeft: theme.spacing(1),

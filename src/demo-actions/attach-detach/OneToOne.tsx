@@ -6,6 +6,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
+import { ActionInfo, Label, Summary } from '../../components/info';
 
 export interface Account {
   email: string,
@@ -101,62 +102,81 @@ export default function Example() {
   };
 
   const main = (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <Grid container>
-        <Grid item sm={6}>
-          <CardsContainer>
-            {accountId.map(accountId => {
-              const account = selectors.getEntity<Account>(entitiesState, { type: 'account', id: accountId });
+    <div>
+      <Summary
+        title="Attach/detach one-to-one"
+        summary="Attach and detach entities of a one-to-many relationship"
+      />
+      <ActionInfo
+        action="attach"
+        docElemId="attach"
+        example="actionCreators.attach('account', 'a1', 'profileId', 'p1')"
+      />
+      <ActionInfo
+        action="detach"
+        docElemId="detach"
+        example="actionCreators.detach('account', 'a1', 'profileId', 'p1')"
+      />
 
-              if (!account) {
-                return null;
-              }
+      <Label>Demo:</Label>
 
-              return (
-                <Card
-                  id={accountId}
-                  text={account.email}
-                  isSelected={accountId === selectedAccount}
-                  attached={account.profileId}
-                  selectedRelatedId={selectedProfile}
-                  select={selectAccount}
-                  deselect={deselectAccount}
-                  attach={(accountId: Id, profileId: Id) => attach({ accountId, profileId })}
-                  detach={(accountId: Id, profileId: Id) => detach({ accountId, profileId })}
-                  checkboxSide="right"
-                />
-              )
-            })}
-          </CardsContainer>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <Grid container>
+          <Grid item sm={6}>
+            <CardsContainer>
+              {accountId.map(accountId => {
+                const account = selectors.getEntity<Account>(entitiesState, { type: 'account', id: accountId });
+
+                if (!account) {
+                  return null;
+                }
+
+                return (
+                  <Card
+                    id={accountId}
+                    text={account.email}
+                    isSelected={accountId === selectedAccount}
+                    attached={account.profileId}
+                    selectedRelatedId={selectedProfile}
+                    select={selectAccount}
+                    deselect={deselectAccount}
+                    attach={(accountId: Id, profileId: Id) => attach({ accountId, profileId })}
+                    detach={(accountId: Id, profileId: Id) => detach({ accountId, profileId })}
+                    checkboxSide="right"
+                  />
+                )
+              })}
+            </CardsContainer>
+          </Grid>
+          <Grid item sm={6}>
+            <CardsContainer>
+              {profileId.map(profileId => {
+                const profile = selectors.getEntity<Profile>(entitiesState, { type: 'profile', id: profileId });
+
+                if (!profile) {
+                  return null;
+                }
+
+                return (
+                  <Card
+                    id={profileId}
+                    text={profile.name}
+                    isSelected={profileId === selectedProfile}
+                    attached={profile.accountId}
+                    selectedRelatedId={selectedAccount}
+                    select={selectProfile}
+                    deselect={deselectProfile}
+                    attach={(profileId: Id, accountId: Id) => attach({ profileId, accountId })}
+                    detach={(profileId: Id, accountId: Id) => detach({ profileId, accountId })}
+                    checkboxSide="left"
+                  />
+                )
+              })}
+            </CardsContainer>
+          </Grid>
         </Grid>
-        <Grid item sm={6}>
-          <CardsContainer>
-            {profileId.map(profileId => {
-              const profile = selectors.getEntity<Profile>(entitiesState, { type: 'profile', id: profileId });
-
-              if (!profile) {
-                return null;
-              }
-
-              return (
-                <Card
-                  id={profileId}
-                  text={profile.name}
-                  isSelected={profileId === selectedProfile}
-                  attached={profile.accountId}
-                  selectedRelatedId={selectedAccount}
-                  select={selectProfile}
-                  deselect={deselectProfile}
-                  attach={(profileId: Id, accountId: Id) => attach({ profileId, accountId })}
-                  detach={(profileId: Id, accountId: Id) => detach({ profileId, accountId })}
-                  checkboxSide="left"
-                />
-              )
-            })}
-          </CardsContainer>
-        </Grid>
-      </Grid>
-    </ClickAwayListener>
+      </ClickAwayListener>
+    </div>
   );
 
   return (

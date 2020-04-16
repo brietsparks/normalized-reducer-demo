@@ -7,6 +7,7 @@ import posed, { PoseGroup } from 'react-pose';
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
 import { useStyles } from './styles';
+import { Info, Label } from '../../components/info';
 
 interface Item {
   name: string
@@ -70,7 +71,17 @@ export default function Example() {
   const classNames = useStyles();
 
   const main = (
-    <Container maxWidth="xs">
+    <Container>
+      <Info
+        title="Sort"
+        summary="Sort an entity collection"
+        action="sort"
+        docElemId="sort"
+        example="actionCreators.sort('item', (a, b) => (a.name > b.name ? 1 : -1))"
+      />
+
+      <Label>Demo:</Label>
+
       <div className={classNames.buttons}>
         <Button onClick={sortAsc}>Sort by Name Asc</Button>
         <Button onClick={sortDesc}>Sort by Name Desc</Button>

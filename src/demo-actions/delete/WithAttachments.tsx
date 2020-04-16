@@ -1,11 +1,11 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
 import normalizedSlice, { Cardinalities, Id, Schema } from 'normalized-reducer';
 import Grid from '@material-ui/core/Grid';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
+import { Info, Label } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -76,6 +76,16 @@ export default function Example() {
   const deleteTag = (id: Id) => dispatch(actionCreators.delete('tag', id));
 
   const main = (
+    <div>
+      <Info
+        title="Delete + detach"
+        summary="Delete an entity and automatically detach all entities from it"
+        action="delete"
+        docElemId="delete"
+        example="actionCreators.delete('item', 'i1')"
+      />
+
+      <Label>Demo:</Label>
       <Grid container>
         <Grid item sm={6}>
           <CardsContainer>
@@ -110,6 +120,7 @@ export default function Example() {
           </CardsContainer>
         </Grid>
       </Grid>
+    </div>
   );
 
   return (

@@ -6,6 +6,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
+import { ActionInfo, Label, Summary } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -68,8 +69,8 @@ const initialState: EntitiesState = {
 
 export default function Example() {
   const [entitiesState, dispatch] = useReducer(reducer, initialState);
-  const [selectedItem, setSelectedItem] = useState<Id|undefined>(undefined);
-  const [selectedList, setSelectedList] = useState<Id|undefined>(undefined);
+  const [selectedItem, setSelectedItem] = useState<Id | undefined>(undefined);
+  const [selectedList, setSelectedList] = useState<Id | undefined>(undefined);
 
   const deselectItem = () => setSelectedItem(undefined);
   const deselectList = () => setSelectedList(undefined);
@@ -101,62 +102,81 @@ export default function Example() {
   };
 
   const main = (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <Grid container>
-        <Grid item sm={6}>
-          <CardsContainer>
-            {listId.map(listId => {
-              const list = selectors.getEntity<List>(entitiesState, { type: 'list', id: listId });
+    <div>
+      <Summary
+        title="Attach/detach one-to-many"
+        summary="Attach and detach entities of a one-to-many relationship"
+      />
+      <ActionInfo
+        action="attach"
+        docElemId="attach"
+        example="actionCreators.attach('list', 'l1', 'itemIds', 'i1')"
+      />
+      <ActionInfo
+        action="detach"
+        docElemId="detach"
+        example="actionCreators.detach('list', 'l1', 'itemIds', 'i1')"
+      />
 
-              if (!list) {
-                return null;
-              }
+      <Label>Demo:</Label>
 
-              return (
-                <Card
-                  id={listId}
-                  text={list.title}
-                  isSelected={listId === selectedList}
-                  attached={list.itemIds}
-                  selectedRelatedId={selectedItem}
-                  select={selectList}
-                  deselect={deselectList}
-                  attach={(listId: Id, itemId: Id) => attach({ listId, itemId })}
-                  detach={(listId: Id, itemId: Id) => detach({ listId, itemId })}
-                  checkboxSide="right"
-                />
-              )
-            })}
-          </CardsContainer>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <Grid container>
+          <Grid item sm={6}>
+            <CardsContainer>
+              {listId.map(listId => {
+                const list = selectors.getEntity<List>(entitiesState, { type: 'list', id: listId });
+
+                if (!list) {
+                  return null;
+                }
+
+                return (
+                  <Card
+                    id={listId}
+                    text={list.title}
+                    isSelected={listId === selectedList}
+                    attached={list.itemIds}
+                    selectedRelatedId={selectedItem}
+                    select={selectList}
+                    deselect={deselectList}
+                    attach={(listId: Id, itemId: Id) => attach({ listId, itemId })}
+                    detach={(listId: Id, itemId: Id) => detach({ listId, itemId })}
+                    checkboxSide="right"
+                  />
+                )
+              })}
+            </CardsContainer>
+          </Grid>
+          <Grid item sm={6}>
+            <CardsContainer>
+              {itemIds.map(itemId => {
+                const item = selectors.getEntity<Item>(entitiesState, { type: 'item', id: itemId });
+
+                if (!item) {
+                  return null;
+                }
+
+                return (
+                  <Card
+                    id={itemId}
+                    text={item.name}
+                    isSelected={itemId === selectedItem}
+                    attached={item.listId}
+                    selectedRelatedId={selectedList}
+                    select={selectItem}
+                    deselect={deselectItem}
+                    attach={(itemId: Id, listId: Id) => attach({ itemId, listId })}
+                    detach={(itemId: Id, listId: Id) => detach({ itemId, listId })}
+                    checkboxSide="left"
+                  />
+                )
+              })}
+            </CardsContainer>
+          </Grid>
         </Grid>
-        <Grid item sm={6}>
-          <CardsContainer>
-            {itemIds.map(itemId => {
-              const item = selectors.getEntity<Item>(entitiesState, { type: 'item', id: itemId });
-
-              if (!item) {
-                return null;
-              }
-
-              return (
-                <Card
-                  id={itemId}
-                  text={item.name}
-                  isSelected={itemId === selectedItem}
-                  attached={item.listId}
-                  selectedRelatedId={selectedList}
-                  select={selectItem}
-                  deselect={deselectItem}
-                  attach={(itemId: Id, listId: Id) => attach({ itemId, listId })}
-                  detach={(itemId: Id, listId: Id) => detach({ itemId, listId })}
-                  checkboxSide="left"
-                />
-              )
-            })}
-          </CardsContainer>
-        </Grid>
-      </Grid>
-    </ClickAwayListener>
+      </ClickAwayListener>
+    </div>
   );
 
   return (

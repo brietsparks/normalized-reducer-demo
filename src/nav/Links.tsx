@@ -16,9 +16,7 @@ export default function Links() {
         dense
         component="div"
         subheader={
-          <ListSubheader
-            component="div">Actions Demo
-          </ListSubheader>
+          <ListSubheader component="div">Actions Demo</ListSubheader>
         }
       >
         <Link to={routes.create}>
@@ -28,7 +26,7 @@ export default function Links() {
         </Link>
         <Link to={routes.createIndexed}>
           <ListItem button>
-            <ListItemText>Created, indexed</ListItemText>
+            <ListItemText>Create, indexed</ListItemText>
           </ListItem>
         </Link>
         <Link to={routes.update}>

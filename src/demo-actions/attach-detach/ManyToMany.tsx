@@ -6,6 +6,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
+import { ActionInfo, Label, Summary } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -101,62 +102,81 @@ export default function Example() {
   };
 
   const main = (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <Grid container>
-        <Grid item sm={6}>
-          <CardsContainer>
-            {itemIds.map(itemId => {
-              const item = selectors.getEntity<Item>(entitiesState, { type: 'item', id: itemId });
+    <div>
+      <Summary
+        title="Attach/detach many-to-many"
+        summary="Attach and detach entities of a many-to-many relationship"
+      />
+      <ActionInfo
+        action="attach"
+        docElemId="attach"
+        example="actionCreators.attach('item', 'i1', 'tagIds', 't1')"
+      />
+      <ActionInfo
+        action="detach"
+        docElemId="detach"
+        example="actionCreators.detach('item', 'i1', 'tagIds', 't1')"
+      />
 
-              if (!item) {
-                return null;
-              }
+      <Label>Demo:</Label>
 
-              return (
-                <Card
-                  id={itemId}
-                  text={item.name}
-                  isSelected={itemId === selectedItem}
-                  attached={item.tagIds}
-                  selectedRelatedId={selectedTag}
-                  select={selectItem}
-                  deselect={deselectItem}
-                  attach={(itemId: Id, tagId: Id) => attach({ itemId, tagId })}
-                  detach={(itemId: Id, tagId: Id) => detach({ itemId, tagId })}
-                  checkboxSide="right"
-                />
-              )
-            })}
-          </CardsContainer>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <Grid container>
+          <Grid item sm={6}>
+            <CardsContainer>
+              {itemIds.map(itemId => {
+                const item = selectors.getEntity<Item>(entitiesState, { type: 'item', id: itemId });
+
+                if (!item) {
+                  return null;
+                }
+
+                return (
+                  <Card
+                    id={itemId}
+                    text={item.name}
+                    isSelected={itemId === selectedItem}
+                    attached={item.tagIds}
+                    selectedRelatedId={selectedTag}
+                    select={selectItem}
+                    deselect={deselectItem}
+                    attach={(itemId: Id, tagId: Id) => attach({ itemId, tagId })}
+                    detach={(itemId: Id, tagId: Id) => detach({ itemId, tagId })}
+                    checkboxSide="right"
+                  />
+                )
+              })}
+            </CardsContainer>
+          </Grid>
+          <Grid item sm={6}>
+            <CardsContainer>
+              {tagIds.map(tagId => {
+                const tag = selectors.getEntity<Tag>(entitiesState, { type: 'tag', id: tagId });
+
+                if (!tag) {
+                  return null;
+                }
+
+                return (
+                  <Card
+                    id={tagId}
+                    text={tag.title}
+                    isSelected={tagId === selectedTag}
+                    attached={tag.itemIds}
+                    selectedRelatedId={selectedItem}
+                    select={selectTag}
+                    deselect={deselectTag}
+                    attach={(tagId: Id, itemId: Id) => attach({ tagId, itemId })}
+                    detach={(tagId: Id, itemId: Id) => detach({ tagId, itemId })}
+                    checkboxSide="left"
+                  />
+                )
+              })}
+            </CardsContainer>
+          </Grid>
         </Grid>
-        <Grid item sm={6}>
-          <CardsContainer>
-            {tagIds.map(tagId => {
-              const tag = selectors.getEntity<Tag>(entitiesState, { type: 'tag', id: tagId });
-
-              if (!tag) {
-                return null;
-              }
-
-              return (
-                <Card
-                  id={tagId}
-                  text={tag.title}
-                  isSelected={tagId === selectedTag}
-                  attached={tag.itemIds}
-                  selectedRelatedId={selectedItem}
-                  select={selectTag}
-                  deselect={deselectTag}
-                  attach={(tagId: Id, itemId: Id) => attach({ tagId, itemId })}
-                  detach={(tagId: Id, itemId: Id) => detach({ tagId, itemId })}
-                  checkboxSide="left"
-                />
-              )
-            })}
-          </CardsContainer>
-        </Grid>
-      </Grid>
-    </ClickAwayListener>
+      </ClickAwayListener>
+    </div>
   );
 
   return (

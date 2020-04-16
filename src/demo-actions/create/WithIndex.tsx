@@ -11,7 +11,7 @@ import { Card, CardsContainer } from '../../components/card';
 import { randomString } from '../../util';
 import { useStyles } from './styles';
 import { useEnterHandler } from './hooks';
-import { ActionInfo } from '../../components/action-info';
+import { Info, Label } from '../../components/info';
 
 interface Item {
   name: string
@@ -63,13 +63,16 @@ export default function Example() {
   };
 
   const main = (
-    <Container maxWidth="xs">
-      <ActionInfo
-        title="Create"
-        summary="Adds an entity to a collection at a given index"
+    <Container>
+      <Info
+        title="Create, indexed"
+        summary="Add an entity to a collection at a given index."
+        action="create"
         docElemId="create"
-        example=""
+        example="actionCreators.create('item', id, { a: 'foo' }, 2)"
       />
+
+      <Label>Demo:</Label>
 
       <NewItemForm onSubmit={createItem} />
 
@@ -131,6 +134,7 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
     <div className={classNames.form}>
       <TextField
         autoFocus
+        className={classNames.formItemName}
         inputProps={nameInputProps}
         placeholder="Item name:"
         value={name}

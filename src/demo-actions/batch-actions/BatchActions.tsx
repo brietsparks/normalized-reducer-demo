@@ -9,6 +9,7 @@ import { Card, CardsContainer } from '../../components/card';
 import { useStyles } from './styles';
 import { Layout } from '../../components/layout';
 import { randomString } from '../../util';
+import { Info, Label } from '../../components/info';
 
 export interface Item {
   name: string,
@@ -81,10 +82,24 @@ export default function Example() {
   const classNames = useStyles();
 
   const main = (
-    <Container maxWidth="xs">
-      <Button onClick={addListWithItems}>Create List with Items</Button>
+    <Container>
+      <Info
+        title="Batch"
+        summary="Run a batch of actions in a single reduction"
+        action="batch"
+        docElemId="batch"
+        example={[
+          "actionCreators.batch(",
+          "  actionCreators.create('list', 'l1'),",
+          "  actionCreators.create('item', 'i1'),",
+          "  actionCreators.attach('list', 'l1', 'itemIds', 'i1'),",
+          ")",
+        ]}
+      />
 
-      <hr/>
+      <Label>Demo:</Label>
+
+      <Button onClick={addListWithItems}>Create List with Items</Button>
 
       <CardsContainer>
         {listIds.map(listId => {
