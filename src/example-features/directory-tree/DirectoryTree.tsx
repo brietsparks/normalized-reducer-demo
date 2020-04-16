@@ -256,11 +256,11 @@ function DirectoryNode({ id }: DirectoryCardProps) {
               }
 
               {isDirectoryFormShown &&
-              <Form onSubmit={createChildDirectory} placeholder="New Folder:"/>
+              <Form onSubmit={createChildDirectory} placeholder="New Folder:" autoFocus={true}/>
               }
 
               {isFileFormShown &&
-              <Form onSubmit={createFile} placeholder="New File:"/>
+              <Form onSubmit={createFile} placeholder="New File:" autoFocus={true}/>
               }
             </div>
           </ClickAwayListener>
@@ -306,10 +306,11 @@ function FileNode({ id }: FileNodeProps) {
 
 interface FormProps {
   onSubmit: (name: string) => void,
-  placeholder: string
+  placeholder: string,
+  autoFocus?: boolean,
 }
 
-function Form({ onSubmit, placeholder }: FormProps) {
+function Form({ onSubmit, placeholder, autoFocus }: FormProps) {
   const [name, setName] = useState('');
   const cleanName = name.trim();
 
@@ -323,7 +324,7 @@ function Form({ onSubmit, placeholder }: FormProps) {
   return (
     <div>
       <TextField
-        autoFocus
+        autoFocus={autoFocus}
         value={name}
         onChange={e => setName(e.target.value)}
         placeholder={placeholder}

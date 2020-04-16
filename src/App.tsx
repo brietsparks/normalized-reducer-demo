@@ -14,6 +14,7 @@ import { SortAttached } from './demo-actions/sort-attached';
 import { BatchActions } from './demo-actions/batch-actions';
 import { SetState }  from './demo-actions/set-state';
 
+import { SortableTags } from './example-features/sortable-tags';
 import { NormalizrIntegration } from './example-features/normalizr-integration';
 import { CommentTree } from './example-features/comment-tree';
 import { DirectoryTree } from './example-features/directory-tree';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline/>
 
+      <SortableTags/>
       <DirectoryTree/>
       <NormalizrIntegration/>
       <CommentTree/>
