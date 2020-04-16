@@ -10,6 +10,7 @@ import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
 import { randomString } from '../../util';
 import { useStyles } from './styles';
+import { useEnterHandler } from './hooks';
 
 interface Item {
   name: string
@@ -103,16 +104,21 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
     }
   };
 
+  const nameInputProps = useEnterHandler(handleSubmit);
+  const indexInputProps = useEnterHandler(handleSubmit);
+
   return (
     <div className={classNames.indexFormButtons}>
       <TextField
         autoFocus
+        inputProps={nameInputProps}
         placeholder="Item name:"
         value={name}
         onChange={e => setName(e.target.value)}
       />
 
       <TextField
+        inputProps={indexInputProps}
         placeholder="Index:"
         value={index}
         onChange={e => e && setIndex(Number(e.target.value))}

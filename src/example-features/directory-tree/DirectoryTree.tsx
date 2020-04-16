@@ -148,7 +148,7 @@ function TopLevelDirectoryNodes() {
         <DirectoryNode key={id} id={id}/>
       ))}
 
-      <Form onSubmit={createTopLevelDirectory} placeholder="New Top Level Directory"/>
+      <Form onSubmit={createTopLevelDirectory} placeholder="New Top Level Folder"/>
     </div>
   );
 

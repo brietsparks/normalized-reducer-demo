@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Divider from '@material-ui/core/Divider';
 
 import routes from './routes';
 import './overrides.css';
@@ -90,6 +91,7 @@ export default function Links() {
             <ListItemText>Set state</ListItemText>
           </ListItem>
         </Link>
+        <Divider/>
       </List>
 
       <List

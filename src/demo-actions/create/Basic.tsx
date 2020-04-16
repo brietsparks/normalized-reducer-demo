@@ -4,12 +4,15 @@ import AddIcon from '@material-ui/icons/AddCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 
 
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
 import { randomString } from '../../util';
+import { useStyles } from './styles';
+import { useEnterHandler } from './hooks';
 
 interface Item {
   name: string
@@ -87,10 +90,15 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
     }
   };
 
+  const inputProps = useEnterHandler(handleSubmit);
+
+  const classNames = useStyles();
+
   return (
-    <div>
+    <div className={classNames.form}>
       <TextField
         autoFocus
+        inputProps={inputProps}
         placeholder="Item name:"
         value={name}
         onChange={e => setName(e.target.value)}
@@ -104,6 +112,10 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
           )
         }}
       />
+
+      {!!cleanName &&
+      <Typography className={classNames.formHint} variant="caption">press enter</Typography>
+      }
     </div>
   );
 }
