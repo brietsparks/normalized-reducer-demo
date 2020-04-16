@@ -1,0 +1,17 @@
+.nav-links .MuiListSubheader-root {
+    line-height: 20px;
+}
+
+.nav-links .MuiListItem-dense {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.nav-links .MuiListItemText-root {
+    margin: 0;
+}
+
+.nav-links a {
+    display: block;
+    text-decoration: none;
+}

@@ -1,13 +1,12 @@
-import React, { useReducer } from 'react';
-import Container from '@material-ui/core/Container';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import makeNormalizedSlice, { Cardinalities, Schema, fromNormalizr, NormalizrOutput } from 'normalized-reducer';
 import { normalize } from 'normalizr';
 
 import normalizrSchema from './normalizr-schema';
 import { useStyles } from './styles';
-import { Layout } from '../../components/layout';
 import { StateViewer } from '../../components/state-viewer';
+import { Links } from '../../nav';
 
 export interface User {
   id: string,
@@ -140,7 +139,9 @@ export default function NormalizrIntegration() {
   return (
     <Grid container>
       <Grid item sm={2}>
-        {null}
+        <div className={classNames.scrollable}>
+          <Links/>
+        </div>
       </Grid>
 
       <Grid item sm={10}>

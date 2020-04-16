@@ -106,6 +106,7 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
   return (
     <div className={classNames.indexFormButtons}>
       <TextField
+        autoFocus
         placeholder="Item name:"
         value={name}
         onChange={e => setName(e.target.value)}

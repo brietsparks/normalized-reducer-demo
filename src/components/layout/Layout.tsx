@@ -2,6 +2,8 @@ import React, { ReactNode } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { StateViewer } from '../state-viewer';
+import { Links } from '../../nav';
+import { useStyles } from './styles';
 
 export interface Props {
   sidebar?: ReactNode|null,
@@ -11,25 +13,29 @@ export interface Props {
 }
 
 export default function Layout({
-  sidebar = null,
+  sidebar = <Links/>,
   main = null,
   state,
   stateName
 }: Props) {
+  const classNames = useStyles();
+
   return (
     <Grid container>
       <Grid item sm={2}>
-        {sidebar}
+        <div className={classNames.scrollable}>
+          {sidebar}
+        </div>
       </Grid>
 
       <Grid item sm={6}>
-        <Container style={{ height: '100vh', overflowY: 'scroll' }}>
+        <Container className={classNames.scrollable}>
           {main}
         </Container>
       </Grid>
 
       <Grid item sm={4}>
-        <div style={{ height: '100vh', overflowY: 'scroll' }}>
+        <div className={classNames.scrollable}>
           <StateViewer state={state} name={stateName} />
         </div>
       </Grid>
