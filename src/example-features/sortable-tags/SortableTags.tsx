@@ -1,10 +1,11 @@
-import React, { useReducer, ReactNode } from 'react';
-import Container from '@material-ui/core/Container';
+import React, { ReactNode, useReducer } from 'react';
 import Chip, { ChipProps } from '@material-ui/core/Chip';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import Typography from '@material-ui/core/Typography';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import makeNormalizedSlice from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
+import { Summary, Code, Label, ExternalLink } from '../../components/info';
 import { useStyles } from './style';
 
 interface Tag {
@@ -33,9 +34,21 @@ const initialState = {
   }
 };
 
+
+
 const SortableList = SortableContainer(
   (props: { children: ReactNode }) => {
     return <div style={{ display: 'flex', flexWrap: 'wrap' }}>{props.children}</div>;
+  }
+);
+
+const DragHandle = SortableHandle(
+  (props: { children: React.ReactNode }) => {
+    return (
+      <span style={{cursor: 'grab'}} {...props}>
+        {props.children}
+      </span>
+    );
   }
 );
 
@@ -43,7 +56,7 @@ const SortableChip = SortableElement((props: ChipProps) => {
   const classNames = useStyles();
 
   return (
-    <div><Chip {...props} className={classNames.chip} /></div>
+    <div><Chip {...props} className={classNames.chip}/></div>
   )
 });
 
@@ -61,21 +74,54 @@ export default function Example() {
 
   const ids = selectors.getIds(state, { type: 'tag' });
 
+  const classNames = useStyles();
+
   const main = (
-    <Container maxWidth="xs">
-      <SortableList
-        axis="xy"
-        onSortStart={handleSortStart}
-        onSortEnd={handleSortEnd}
-      >
-        {ids.map((id, index) => {
-          const tag = selectors.getEntity<Tag>(state, { type: 'tag', id });
-          return (
-            <SortableChip label={tag?.value} index={index} />
-          )
-        })}
-      </SortableList>
-    </Container>
+    <div>
+      <Summary
+        title="Sortable Tags"
+        summary="Setting up state for a sortable list is easy."
+      />
+
+      <Label>Setup:</Label>
+      <Code>
+{`const schema = {
+  tag: {}
+};
+
+const { selectors, actionCreators, reducer } = makeNormalizedSlice(schema);`}
+      </Code>
+
+      <Typography className={classNames.sourceLink}>
+        <ExternalLink
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/sortable-tags/SortableTags.tsx"
+          text="Source"
+        />
+      </Typography>
+
+      <Label>Demo:</Label>
+      <div className={classNames.demo}>
+        <SortableList
+          axis="xy"
+          onSortStart={handleSortStart}
+          onSortEnd={handleSortEnd}
+          useDragHandle
+        >
+          {ids.map((id, index) => {
+            const tag = selectors.getEntity<Tag>(state, { type: 'tag', id });
+            const handleDelete = () => dispatch(actionCreators.delete('tag', id));
+            return (
+              <SortableChip
+                key={id}
+                index={index}
+                label={<DragHandle>{tag?.value}</DragHandle>}
+                onDelete={handleDelete}
+              />
+            )
+          })}
+        </SortableList>
+      </div>
+    </div>
   );
 
   return (

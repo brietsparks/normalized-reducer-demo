@@ -1,1 +1,1 @@
-export { default as Info, Summary, ActionInfo, Label } from './ActionInfo';
+export { default as Info, Summary, ActionInfo, Code, ExternalLink, Label } from './ActionInfo';

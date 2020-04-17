@@ -22,9 +22,9 @@ export const Label = (props: TypographyProps) => {
 
 export interface SummaryProps {
   title: string,
-  summary: string,
+  summary?: string,
 }
-export function Summary({ title, summary, }: SummaryProps) {
+export function Summary({ title, summary = '', }: SummaryProps) {
   const classNames = useStyles();
   return (
     <div>
@@ -34,6 +34,43 @@ export function Summary({ title, summary, }: SummaryProps) {
         <Typography>{summary}</Typography>
       </div>
     </div>
+  );
+}
+
+export interface CodeProps {
+  children?: string|string[]
+}
+export function Code({ children }: CodeProps) {
+  const classNames = useStyles();
+
+  return (
+    <pre className={classNames.preformat}>
+      <code>
+        {Array.isArray(children) ? children.join('\n') : children}
+      </code>
+    </pre>
+  );
+}
+
+export interface ExternalLinkProps {
+  elemId?: string,
+  text: string,
+  url?: string
+}
+
+export function ExternalLink({ elemId, text, url, ...props }: ExternalLinkProps) {
+  const classNames = useStyles();
+
+  if (!elemId && !url) {
+    throw new Error(('ExternalLink expects either an elemId or url'))
+  }
+
+  const href = url ? url : `${urlBase}#${elemId}`;
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      {text}<OpenInNewIcon className={classNames.docsIcon}/>
+    </a>
   );
 }
 
@@ -55,17 +92,13 @@ export function ActionInfo({
       <div className={classNames.section}>
         <Typography>
           <span className={classNames.label}>Action: </span>
-          <a href={`${urlBase}#${docElemId}`} target="_blank" rel="noopener noreferrer">
-            {action}<OpenInNewIcon className={classNames.docsIcon}/>
-          </a>
+          <ExternalLink elemId={docElemId} text={action} />
         </Typography>
       </div>
 
       <div className={classNames.section}>
         <Label>Example:</Label>
-        <pre className={classNames.preformat}><code>
-          {Array.isArray(example) ? example.join('\n') : example}
-        </code></pre>
+        <Code>{example}</Code>
       </div>
     </div>
   )

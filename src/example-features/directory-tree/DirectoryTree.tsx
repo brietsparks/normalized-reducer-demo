@@ -11,6 +11,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import NewFileIcon from '@material-ui/icons/NoteAdd';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import OptionsIcon from '@material-ui/icons/MoreHoriz';
 import normalizedSlice, { Id, State as BaseState } from 'normalized-reducer';
@@ -19,6 +20,7 @@ import { Layout } from '../../components/layout';
 import { randomString } from '../../util';
 import { useStyles } from './styles';
 import './override.css';
+import { Code, ExternalLink, Label, Summary } from '../../components/info';
 
 export interface Directory {
   id: Id;
@@ -37,26 +39,18 @@ export interface File {
 const schema = {
   directory: {
     parentDirectoryId: {
-      type: 'directory',
-      cardinality: 'one',
-      reciprocal: 'childDirectoryIds'
+      type: 'directory', cardinality: 'one', reciprocal: 'childDirectoryIds'
     },
     childDirectoryIds: {
-      type: 'directory',
-      cardinality: 'many',
-      reciprocal: 'parentDirectoryId'
+      type: 'directory', cardinality: 'many', reciprocal: 'parentDirectoryId'
     },
     fileIds: {
-      type: 'file',
-      cardinality: 'many',
-      reciprocal: 'directoryId'
+      type: 'file', cardinality: 'many', reciprocal: 'directoryId'
     }
   },
   file: {
     directoryId: {
-      type: 'directory',
-      cardinality: 'one',
-      reciprocal: 'fileIds'
+      type: 'directory', cardinality: 'one', reciprocal: 'fileIds'
     }
   }
 };
@@ -142,13 +136,60 @@ function TopLevelDirectoryNodes() {
     dispatch(actionCreators.create('directory', id, { name }));
   };
 
+  const classNames = useStyles();
+
   const main = (
     <div>
-      {topLevelIds.map(id => (
-        <DirectoryNode key={id} id={id}/>
-      ))}
+      <Summary
+        title="Directory Tree"
+        summary="An a composite-tree structure use-case, where deletion will cascade to all descendants."
+      />
 
-      <Form onSubmit={createTopLevelDirectory} placeholder="New Top Level Folder"/>
+      <Label>Setup:</Label>
+      <Code>
+        {`const schema = {
+  directory: {
+    parentDirectoryId: {
+      type: 'directory', cardinality: 'one', reciprocal: 'childDirectoryIds'
+    },
+    childDirectoryIds: {
+      type: 'directory', cardinality: 'many', reciprocal: 'parentDirectoryId'
+    },
+    fileIds: {
+      type: 'file', cardinality: 'many', reciprocal: 'directoryId'
+    }
+  },
+  file: {
+    directoryId: {
+      type: 'directory', cardinality: 'one', reciprocal: 'fileIds'
+    }
+  }
+};
+
+export const {
+  emptyState,
+  actionCreators,
+  reducer,
+  selectors,
+} = normalizedSlice(schema);
+`}
+      </Code>
+
+      <Typography className={classNames.sourceLink}>
+        <ExternalLink
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/directory-tree/DirectoryTree.tsx"
+          text="Source"
+        />
+      </Typography>
+
+      <Label>Demo:</Label>
+        <div>
+        {topLevelIds.map(id => (
+          <DirectoryNode key={id} id={id}/>
+        ))}
+
+        <Form onSubmit={createTopLevelDirectory} placeholder="New Top Level Folder"/>
+      </div>
     </div>
   );
 
@@ -160,10 +201,11 @@ function TopLevelDirectoryNodes() {
   )
 }
 
+const cascade = () => ({ childDirectoryIds: cascade, fileIds: {} });
+
 interface DirectoryCardProps {
   id: Id,
 }
-
 function DirectoryNode({ id }: DirectoryCardProps) {
   const directory = useSelector<State, Directory | undefined>(state => selectors.getEntity<Directory>(state, {
     type: 'directory',
@@ -219,6 +261,9 @@ function DirectoryNode({ id }: DirectoryCardProps) {
     ));
     hideFormAndOptions();
   };
+  const deleteDirectory = () => {
+    dispatch(actionCreators.delete('directory', id, cascade))
+  };
 
   if (!directory) {
     return null;
@@ -252,6 +297,7 @@ function DirectoryNode({ id }: DirectoryCardProps) {
               <span>
                 <IconButton onClick={showDirectoryForm}><NewFolderIcon/></IconButton>
                 <IconButton onClick={showFileForm}><NewFileIcon/></IconButton>
+                <IconButton onClick={deleteDirectory}><DeleteIcon/></IconButton>
               </span>
               }
 

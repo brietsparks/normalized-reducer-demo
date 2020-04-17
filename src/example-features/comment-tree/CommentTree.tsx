@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createStore } from 'redux';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
 import ReplyIcon from '@material-ui/icons/ModeComment';
@@ -13,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import normalizedSlice, { Schema, Cardinalities, Id } from 'normalized-reducer';
 
 import { Layout } from '../../components/layout';
+import { Summary, Code, Label, ExternalLink } from '../../components/info';
 import { useStyles } from './styles';
 import { randomString } from '../../util';
 
@@ -116,8 +116,49 @@ function Main() {
     dispatch(actionCreators.create('comment', id, { value }));
   };
 
+  const classNames = useStyles();
+
   const main = (
-    <Container maxWidth="sm">
+    <div>
+      <Summary
+        title="Comment Tree"
+        summary="An example of a tree structure use-case, where deletion will cascade to all descendants."
+      />
+
+      <Label>Setup:</Label>
+      <Code>
+        {`const schema: Schema = {
+  comment: {
+    parentId: {
+      type: 'comment',
+      cardinality: Cardinalities.ONE,
+      reciprocal: 'childIds'
+    },
+    childIds: {
+      type: 'comment',
+      cardinality: Cardinalities.MANY,
+      reciprocal: 'parentId'
+    }
+  }
+};
+
+export const {
+  emptyState,
+  actionCreators,
+  reducer,
+  selectors,
+} = normalizedSlice(schema);
+`}
+      </Code>
+
+      <Typography className={classNames.sourceLink}>
+        <ExternalLink
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/comment-tree/CommentTree.tsx"
+          text="Source"
+        />
+      </Typography>
+
+      <Label>Demo:</Label>
       <div>
         <div>
           {ids.map(id => (
@@ -129,7 +170,7 @@ function Main() {
           label="Comment"
         />
       </div>
-    </Container>
+    </div>
   );
 
   return (
