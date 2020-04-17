@@ -135,6 +135,7 @@ export default function Example() {
 
                 return (
                   <Card
+                    key={listId}
                     id={listId}
                     text={list.title}
                     isSelected={listId === selectedList}
@@ -161,6 +162,7 @@ export default function Example() {
 
                 return (
                   <Card
+                    key={itemId}
                     id={itemId}
                     text={item.name}
                     isSelected={itemId === selectedItem}

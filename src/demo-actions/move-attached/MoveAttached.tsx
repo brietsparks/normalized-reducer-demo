@@ -141,6 +141,7 @@ export default function MoveAttached() {
 
           return (
             <Card
+              key={listId}
               isRightShown={true}
               body={body}
             />

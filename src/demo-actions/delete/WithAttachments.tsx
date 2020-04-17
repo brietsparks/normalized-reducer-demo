@@ -98,6 +98,7 @@ export default function Example() {
 
               return (
                 <Card
+                  key={itemId}
                   id={itemId}
                   text={item?.name}
                   attached={item?.tagIds}
@@ -114,6 +115,7 @@ export default function Example() {
 
               return (
                 <Card
+                  key={tagId}
                   id={tagId}
                   text={tag?.title}
                   attached={tag?.itemIds}

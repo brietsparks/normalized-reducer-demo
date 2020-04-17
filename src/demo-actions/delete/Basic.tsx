@@ -73,6 +73,7 @@ export default function Example() {
 
           return (
             <Card
+              key={id}
               isSelectable={false}
               body={item?.name}
               right={

@@ -111,11 +111,11 @@ export default function Example() {
               <Typography className={classNames.listTitle}>{list?.title}</Typography>
 
               <div>
-                {list?.itemIds.map((itemId, index) => {
+                {list?.itemIds.map((itemId) => {
                   const item = selectors.getEntity<Item>(state, { type: 'item', id: itemId });
 
                   return (
-                    <div className={classNames.item}>
+                    <div key={itemId} className={classNames.item}>
                       <Typography>{item?.name}</Typography>
                     </div>
                   )
@@ -126,6 +126,7 @@ export default function Example() {
 
           return (
             <Card
+              key={listId}
               isRightShown={true}
               body={body}
             />

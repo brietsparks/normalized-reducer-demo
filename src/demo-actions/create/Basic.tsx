@@ -69,7 +69,7 @@ export default function Example() {
         {ids.map(id => {
           const item = selectors.getEntity<Item>(state, { type: 'item', id });
           return (
-            <Card body={item?.name} isSelectable={false}/>
+            <Card key={id} body={item?.name} isSelectable={false}/>
           )
         })}
       </CardsContainer>

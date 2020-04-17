@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
+import GithubIcon from '@material-ui/icons/GitHub';
 
 import routes from './routes';
 import './overrides.css';
@@ -14,12 +15,13 @@ export default function Links() {
     <List dense component="nav" className="nav-links">
       <ListItem>
         <ListItemText>
-          <a href="https://github.com/brietsparks/normalized-reducer">
-            Normalized Reducer
+          <a href="https://github.com/brietsparks/normalized-reducer" target="_blank" rel="noopener noreferrer">
+            <GithubIcon/> Normalized Reducer
           </a>
         </ListItemText>
       </ListItem>
 
+      <Divider/>
 
       <List
         dense

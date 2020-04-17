@@ -135,6 +135,7 @@ export default function Example() {
 
                 return (
                   <Card
+                    key={itemId}
                     id={itemId}
                     text={item.name}
                     isSelected={itemId === selectedItem}
@@ -161,6 +162,7 @@ export default function Example() {
 
                 return (
                   <Card
+                    key={tagId}
                     id={tagId}
                     text={tag.title}
                     isSelected={tagId === selectedTag}

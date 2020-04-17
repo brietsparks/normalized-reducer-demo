@@ -135,6 +135,7 @@ export default function Example() {
 
                 return (
                   <Card
+                    key={accountId}
                     id={accountId}
                     text={account.email}
                     isSelected={accountId === selectedAccount}
@@ -161,6 +162,7 @@ export default function Example() {
 
                 return (
                   <Card
+                    key={profileId}
                     id={profileId}
                     text={profile.name}
                     isSelected={profileId === selectedProfile}
