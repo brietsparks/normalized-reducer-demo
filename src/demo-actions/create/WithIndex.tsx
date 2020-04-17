@@ -12,6 +12,7 @@ import { randomString } from '../../util';
 import { useStyles } from './styles';
 import { useEnterHandler } from './hooks';
 import { Info, Label } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
 
 interface Item {
   name: string
@@ -73,6 +74,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Add some items. Each entity will get added to the <code>state.entities.item</code> object, and its id will be inserted at the appropriate index in the <code>state.ids.item</code> array.</Typography>
 
       <NewItemForm onSubmit={createItem} />
 

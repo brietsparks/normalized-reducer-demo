@@ -2,6 +2,7 @@ import React, { useReducer, useState } from 'react';
 import normalizedSlice, { Cardinalities, Id, Schema } from 'normalized-reducer';
 import Grid from '@material-ui/core/Grid';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Typography from '@material-ui/core/Typography';
 
 import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
@@ -119,6 +120,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Click on a box. Then click the checkboxes in the opposite column to attach/detach it. Attaching and detaching will change both entities in <code>state.entities</code>.</Typography>
 
       <ClickAwayListener onClickAway={handleClickAway}>
         <Grid container>

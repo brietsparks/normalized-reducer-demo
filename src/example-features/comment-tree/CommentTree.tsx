@@ -15,6 +15,7 @@ import { Layout } from '../../components/layout';
 import { Summary, Code, Label, ExternalLink } from '../../components/info';
 import { useStyles } from './styles';
 import { randomString } from '../../util';
+import Container from '@material-ui/core/Container';
 
 interface Comment {
   value: string,
@@ -159,6 +160,7 @@ export const {
       </Typography>
 
       <Label>Demo:</Label>
+
       <div>
         <div>
           {ids.map(id => (

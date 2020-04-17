@@ -6,6 +6,8 @@ import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
 import { Info, Label } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 export interface Item {
   name: string,
@@ -86,6 +88,8 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Delete some items and tags. Deleting one will cause its id to be removed from the entity it was attached to.</Typography>
+
       <Grid container>
         <Grid item sm={6}>
           <CardsContainer>

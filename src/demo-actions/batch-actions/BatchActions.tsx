@@ -98,6 +98,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Click the button to dispatch an action that contains multiple actions. Each one will create a list, three items, and then attach the items to the list.</Typography>
 
       <Button onClick={addListWithItems}>Create List with Items</Button>
 

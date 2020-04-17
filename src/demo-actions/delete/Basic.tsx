@@ -7,6 +7,7 @@ import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
 import { Info, Label } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
 
 interface Item {
   name: string
@@ -62,6 +63,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Delete some items. The item will be removed from the <code>state.entities.item</code> object, and its id will be removed from the <code>state.ids.item</code> array.</Typography>
 
       <CardsContainer>
         {ids.map(id => {

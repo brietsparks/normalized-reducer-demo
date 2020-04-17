@@ -100,6 +100,7 @@ export default function MoveAttached() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Move an item within a list. Inside the list's data in <code>state.entities.list</code>, the item's id will be moved to the new index in <code>itemIds</code>.</Typography>
 
       <CardsContainer>
         {listIds.map(listId => {

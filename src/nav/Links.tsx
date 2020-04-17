@@ -12,6 +12,15 @@ import './overrides.css';
 export default function Links() {
   return (
     <List dense component="nav" className="nav-links">
+      <ListItem>
+        <ListItemText>
+          <a href="https://github.com/brietsparks/normalized-reducer">
+            Normalized Reducer
+          </a>
+        </ListItemText>
+      </ListItem>
+
+
       <List
         dense
         component="div"

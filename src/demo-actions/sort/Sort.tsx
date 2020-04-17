@@ -8,6 +8,7 @@ import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
 import { useStyles } from './styles';
 import { Info, Label } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
 
 interface Item {
   name: string
@@ -81,6 +82,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Click the buttons to sort by name. The ids will be sorted inside the <code>state.ids.item</code> array.</Typography>
 
       <div className={classNames.buttons}>
         <Button onClick={sortAsc}>Sort by Name Asc</Button>

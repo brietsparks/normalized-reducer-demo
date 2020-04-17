@@ -61,6 +61,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Add some items. Each entity will get added to the <code>state.entities.item</code> object, and its id will be appended on the <code>state.ids.item</code> array.</Typography>
 
       <NewItemForm onSubmit={createItem} />
 

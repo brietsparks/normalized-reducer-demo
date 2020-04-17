@@ -54,8 +54,8 @@ const { selectors, reducer, actionCreators } = normalizedSlice<EntitiesState>(sc
 const initialState: EntitiesState = {
   entities: {
     list: {
-      'l1': { title: 'List 1', itemIds: ['i1', 'i2', 'i3'] },
-      'l2': { title: 'List 2', itemIds: ['i4', 'i5', 'i6'] },
+      'l1': { title: 'List 1', itemIds: ['i2', 'i3', 'i1'] },
+      'l2': { title: 'List 2', itemIds: ['i4', 'i6', 'i5'] },
     },
     item: {
       'i1': { name: 'Item 1', listId: 'l1' },
@@ -107,6 +107,7 @@ export default function MoveAttached() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Click the buttons to sort a list's items by name. The ids will be sorted inside the <code>itemIds</code> array of the list inside <code>state.entities.list</code>.</Typography>
 
       <CardsContainer>
         {listIds.map(listId => {

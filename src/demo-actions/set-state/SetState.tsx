@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import { Layout } from '../../components/layout';
 import { useStyles } from './styles';
 import { Info, Label } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
 
 export interface Item {
   name: string,
@@ -87,6 +88,7 @@ export default function MoveAttached() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Click the buttons to set/clear an entire object in the state.</Typography>
 
       <div className={classNames.buttons}>
         <Button onClick={setState}>Set State</Button>

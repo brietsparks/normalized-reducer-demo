@@ -76,6 +76,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Move some items around. The item's id will be moved to the new index in the <code>state.ids.item</code> array.</Typography>
 
       <PoseGroup>
         {ids.map((id, index) => {

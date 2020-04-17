@@ -6,6 +6,7 @@ import normalizedSlice, { Schema, Id } from 'normalized-reducer';
 import { Layout } from '../../components/layout';
 import { Card, CardsContainer } from '../../components/card';
 import { Info, Label } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
 
 interface Item {
   name: string
@@ -62,6 +63,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Edit some items. Each entity will get updated in the <code>state.entities.item</code> object.</Typography>
 
       <CardsContainer>
         {ids.map(id => {

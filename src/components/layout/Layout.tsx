@@ -22,19 +22,19 @@ export default function Layout({
 
   return (
     <Grid container>
-      <Grid item sm={2}>
+      <Grid item xs={12} sm={2}>
         <div className={classNames.scrollable}>
           {sidebar}
         </div>
       </Grid>
 
-      <Grid item sm={6}>
+      <Grid item xs={12} sm={6}>
         <Container className={classNames.scrollable}>
           {main}
         </Container>
       </Grid>
 
-      <Grid item sm={4}>
+      <Grid item xs={12} sm={4}>
         <div className={classNames.scrollable}>
           <StateViewer state={state} name={stateName} />
         </div>

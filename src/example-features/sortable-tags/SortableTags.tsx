@@ -7,6 +7,7 @@ import makeNormalizedSlice from 'normalized-reducer';
 import { Layout } from '../../components/layout';
 import { Summary, Code, Label, ExternalLink } from '../../components/info';
 import { useStyles } from './style';
+import Container from '@material-ui/core/Container';
 
 interface Tag {
   value: string
@@ -100,6 +101,8 @@ const { selectors, actionCreators, reducer } = makeNormalizedSlice(schema);`}
       </Typography>
 
       <Label>Demo:</Label>
+      <Typography>Drag-and-drop the tasks to move (reorder) them, and click the x-icon to delete them.</Typography>
+
       <div className={classNames.demo}>
         <SortableList
           axis="xy"

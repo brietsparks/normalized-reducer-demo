@@ -7,6 +7,7 @@ import { Layout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
 import { ActionInfo, Label, Summary } from '../../components/info';
+import Typography from '@material-ui/core/Typography';
 
 export interface Item {
   name: string,
@@ -119,6 +120,7 @@ export default function Example() {
       />
 
       <Label>Demo:</Label>
+      <Typography>Click on a box. Then click the checkboxes in the opposite column to attach/detach it. Attaching and detaching will change both entities in <code>state.entities</code>. Notice that an item can only have one list at any given time.</Typography>
 
       <ClickAwayListener onClickAway={handleClickAway}>
         <Grid container>
