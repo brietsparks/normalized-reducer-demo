@@ -5,12 +5,18 @@ export interface Props{
   state?: any,
   name?: string,
   level?: number,
+  fullHeight?: boolean
 }
 
-function StateView({ state, name = 'state', level = 5 }: Props) {
+function StateView({
+  state,
+  name = 'state',
+  level = 5,
+  fullHeight = true
+}: Props) {
   return (
     <JsonView
-      style={{ paddingTop: 15, paddingLeft: 15, minHeight: '100vh' }}
+      style={{ paddingTop: 15, paddingLeft: 15, minHeight: fullHeight ? '100vh' : undefined }}
       src={state}
       name={name}
       theme="monokai"

@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { normalize } from 'normalizr';
 import { Cardinalities, fromNormalizr, NormalizrOutput, Schema } from 'normalized-reducer';
@@ -9,7 +8,7 @@ import normalizrSchema from './normalizr-schema';
 import { useStyles } from './styles';
 import { StateViewer } from '../../components/state-viewer';
 import { Links } from '../../nav';
-import { Summary, Code, ExternalLink } from '../../components/info';
+import { Code, ExternalLink, Summary } from '../../components/info';
 
 
 const denormalizedData = [
@@ -120,52 +119,60 @@ export default function NormalizrIntegration() {
       </Grid>
 
       <Grid item sm={10}>
-        <div className={classNames.heading}>
-          <Summary title="Normalizr Integration"/>
+        <div className={classNames.scrollable}>
+          <div className={classNames.heading}>
+            <Summary title="Normalizr Integration"/>
 
-          <Typography>
-            Normalized-reducer integrates with normalizr via an adapter function
-            that transforms data normalized from normalizr into state that can
-            be fed into the reducer.
+            <Typography>
+              Normalized-reducer integrates with normalizr via an adapter function
+              that transforms data normalized from normalizr into state that can
+              be fed into the reducer.
+            </Typography>
+          </div>
+
+          <Typography className={classNames.sourceLink}>
+            <ExternalLink
+              url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/normalizr-integration/NormalizrIntegration.tsx"
+              text="Source"
+            />
           </Typography>
-        </div>
 
-        <Typography className={classNames.sourceLink}>
-          <ExternalLink
-            url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/normalizr-integration/NormalizrIntegration.tsx"
-            text="Source"
-          />
-        </Typography>
-
-        <Code>
-          {`const denormalizedData = {...}
+          <Code>
+            {`const denormalizedData = {...}
 const normalizedData: NormalizrOutput = normalize(denormalizedData, normalizrSchema);
 const initialState = fromNormalizr(normalizedData);`}
-        </Code>
-
-        <Grid container spacing={0}>
-          <Grid item sm={4}>
-            <div className={classNames.scrollable}>
-              <StateViewer
-                state={denormalizedData}
-                name="denormalizedData"
-              />
-            </div>
+          </Code>
+          <div className={classNames.state}>
+            <Grid container spacing={0}>
+            <Grid item sm={4}>
+              <div>
+                <StateViewer
+                  state={denormalizedData}
+                  name="denormalizedData"
+                  fullHeight={false}
+                />
+              </div>
+            </Grid>
+            <Grid item sm={4}>
+              <div>
+                <StateViewer
+                  state={normalizedData}
+                  name="normalizedData"
+                  fullHeight={false}
+                />
+              </div>
+            </Grid>
+            <Grid item sm={4}>
+              <div>
+                <StateViewer
+                  state={initialState}
+                  fullHeight={false}
+                />
+              </div>
+            </Grid>
           </Grid>
-          <Grid item sm={4}>
-            <div className={classNames.scrollable}>
-              <StateViewer
-                state={normalizedData}
-                name="normalizedData"
-              />
-            </div>
-          </Grid>
-          <Grid item sm={4}>
-            <div className={classNames.scrollable}>
-              <StateViewer state={initialState}/>
-            </div>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );

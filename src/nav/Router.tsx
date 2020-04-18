@@ -21,7 +21,7 @@ import routes from './routes';
 
 export default function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="normalized-reducer-demo">
       <Route exact path="/"><Create.Basic/></Route>
       <Route exact path={routes.create}><Create.Basic/></Route>
       <Route exact path={routes.createIndexed}><Create.WithIndex/></Route>

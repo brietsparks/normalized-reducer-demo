@@ -12,5 +12,8 @@ export const useStyles = makeStyles(theme => ({
   scrollable: {
     height: '100vh',
     overflowY: 'scroll'
+  },
+  state: {
+    background: 'rgb(39, 40, 34)'
   }
 }));
