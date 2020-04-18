@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/normalized-reducer/static/css/main.85266e5d.chunk.css",
-    "main.js": "/normalized-reducer/static/js/main.c7471c17.chunk.js",
-    "main.js.map": "/normalized-reducer/static/js/main.c7471c17.chunk.js.map",
-    "runtime-main.js": "/normalized-reducer/static/js/runtime-main.729ab543.js",
-    "runtime-main.js.map": "/normalized-reducer/static/js/runtime-main.729ab543.js.map",
-    "static/js/2.9aeb6687.chunk.js": "/normalized-reducer/static/js/2.9aeb6687.chunk.js",
-    "static/js/2.9aeb6687.chunk.js.map": "/normalized-reducer/static/js/2.9aeb6687.chunk.js.map",
-    "index.html": "/normalized-reducer/index.html",
-    "precache-manifest.fea4c73dce7b7080f99ad1f085864d82.js": "/normalized-reducer/precache-manifest.fea4c73dce7b7080f99ad1f085864d82.js",
-    "service-worker.js": "/normalized-reducer/service-worker.js",
-    "static/css/main.85266e5d.chunk.css.map": "/normalized-reducer/static/css/main.85266e5d.chunk.css.map",
-    "static/js/2.9aeb6687.chunk.js.LICENSE.txt": "/normalized-reducer/static/js/2.9aeb6687.chunk.js.LICENSE.txt"
+    "main.css": "/normalized-reducer-demo/static/css/main.85266e5d.chunk.css",
+    "main.js": "/normalized-reducer-demo/static/js/main.c9a5ae58.chunk.js",
+    "main.js.map": "/normalized-reducer-demo/static/js/main.c9a5ae58.chunk.js.map",
+    "runtime-main.js": "/normalized-reducer-demo/static/js/runtime-main.07ac78ac.js",
+    "runtime-main.js.map": "/normalized-reducer-demo/static/js/runtime-main.07ac78ac.js.map",
+    "static/js/2.9aeb6687.chunk.js": "/normalized-reducer-demo/static/js/2.9aeb6687.chunk.js",
+    "static/js/2.9aeb6687.chunk.js.map": "/normalized-reducer-demo/static/js/2.9aeb6687.chunk.js.map",
+    "index.html": "/normalized-reducer-demo/index.html",
+    "precache-manifest.16a93a353334c3ef17f5ebecc190842a.js": "/normalized-reducer-demo/precache-manifest.16a93a353334c3ef17f5ebecc190842a.js",
+    "service-worker.js": "/normalized-reducer-demo/service-worker.js",
+    "static/css/main.85266e5d.chunk.css.map": "/normalized-reducer-demo/static/css/main.85266e5d.chunk.css.map",
+    "static/js/2.9aeb6687.chunk.js.LICENSE.txt": "/normalized-reducer-demo/static/js/2.9aeb6687.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.729ab543.js",
+    "static/js/runtime-main.07ac78ac.js",
     "static/js/2.9aeb6687.chunk.js",
     "static/css/main.85266e5d.chunk.css",
-    "static/js/main.c7471c17.chunk.js"
+    "static/js/main.c9a5ae58.chunk.js"
   ]
 }
