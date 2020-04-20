@@ -137,6 +137,12 @@ export default function Links() {
             <ListItemText>Normalizr Integration</ListItemText>
           </ListItem>
         </Link>
+
+        <Link to={routes.withReduxToolkit}>
+          <ListItem button>
+            <ListItemText>Redux Toolkit Integration</ListItemText>
+          </ListItem>
+        </Link>
       </List>
     </List>
   );

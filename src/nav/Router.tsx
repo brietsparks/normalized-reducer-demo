@@ -16,6 +16,7 @@ import { SortableTags } from '../example-features/sortable-tags';
 import { NormalizrIntegration } from '../example-features/normalizr-integration';
 import { CommentTree } from '../example-features/comment-tree';
 import { DirectoryTree } from '../example-features/directory-tree';
+import { WithReduxToolkit } from '../example-features/with-redux-toolkit';
 
 import routes from './routes';
 
@@ -42,6 +43,7 @@ export default function Router() {
       <Route exact path={routes.commentTree}><CommentTree/></Route>
       <Route exact path={routes.directoryTree}><DirectoryTree/></Route>
       <Route exact path={routes.normalizrIntegration}><NormalizrIntegration/></Route>
+      <Route exact path={routes.withReduxToolkit}><WithReduxToolkit/></Route>
     </BrowserRouter>
   );
 }

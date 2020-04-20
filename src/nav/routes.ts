@@ -19,4 +19,5 @@ export default  {
   commentTree: '/examples/comment-tree',
   directoryTree: '/examples/directory-tree',
   normalizrIntegration: '/examples/normalizr-integration',
+  withReduxToolkit: '/example/with-redux-toolkit'
 };
