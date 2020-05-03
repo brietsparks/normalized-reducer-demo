@@ -1,147 +1,105 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link  from 'next/link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
 import GithubIcon from '@material-ui/icons/GitHub';
+import MuiLink from '@material-ui/core/Link';
 
 import routes from './routes';
-import './overrides.css';
+import { useStyles } from './styles';
 
 export default function Links() {
+  const classNames = useStyles();
+
   return (
-    <List dense component="nav" className="nav-links">
-      <ListItem>
-        <ListItemText>
-          <a href="https://github.com/brietsparks/normalized-reducer" target="_blank" rel="noopener noreferrer">
-            <GithubIcon/> Normalized Reducer
-          </a>
-        </ListItemText>
-      </ListItem>
+    <List
+      component="nav"
+      className="nav-links"
+      subheader={
+        <ListSubheader component="div" className={classNames.titleHeader}>
+          <MuiLink
+            href="https://github.com/brietsparks/normalized-reducer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classNames.titleLink}
+          >
+            Normalized Reducer <GithubIcon className={classNames.titleIcon} />
+          </MuiLink>
+        </ListSubheader>
+      }
+    >
 
-      <Divider/>
-
-      <List
-        dense
-        component="div"
-        subheader={
-          <ListSubheader component="div">Actions Demo</ListSubheader>
-        }
-      >
-        <Link to={routes.create}>
-          <ListItem button>
-            <ListItemText>Create</ListItemText>
-          </ListItem>
+      <List dense component="div">
+        <ListItem className={classNames.linkSectionHeader}>Demos</ListItem>
+        <Link href={routes.create}>
+          <ListItem button>Create</ListItem>
         </Link>
-        <Link to={routes.createIndexed}>
-          <ListItem button>
-            <ListItemText>Create, indexed</ListItemText>
-          </ListItem>
+        <Link href={routes.createIndexed}>
+          <ListItem button>Create, indexed</ListItem>
         </Link>
-        <Link to={routes.update}>
-          <ListItem button>
-            <ListItemText>Update</ListItemText>
-          </ListItem>
+        <Link href={routes.update}>
+          <ListItem button>Update</ListItem>
         </Link>
-        <Link to={routes.move}>
-          <ListItem button>
-            <ListItemText>Move</ListItemText>
-          </ListItem>
+        <Link href={routes.move}>
+          <ListItem button>Move</ListItem>
         </Link>
-        <Link to={routes.deleteBasic}>
-          <ListItem button>
-            <ListItemText>Delete</ListItemText>
-          </ListItem>
+        <Link href={routes.deleteBasic}>
+          <ListItem button>Delete</ListItem>
         </Link>
-        <Link to={routes.oneToMany}>
-          <ListItem button>
-            <ListItemText>Attach/detach, one-to-many</ListItemText>
-          </ListItem>
+        <Link href={routes.oneToMany}>
+          <ListItem button>Attach/detach, one-to-many</ListItem>
         </Link>
-        <Link to={routes.manyToMany}>
-          <ListItem button>
-            <ListItemText>Attach/detach, many-to-many</ListItemText>
-          </ListItem>
+        <Link href={routes.manyToMany}>
+          <ListItem button>Attach/detach, many-to-many</ListItem>
         </Link>
-        <Link to={routes.oneToOne}>
-          <ListItem button>
-            <ListItemText>Attach/detach, one-to-one</ListItemText>
-          </ListItem>
+        <Link href={routes.oneToOne}>
+          <ListItem button>Attach/detach, one-to-one</ListItem>
         </Link>
-        <Link to={routes.moveAttached}>
-          <ListItem button>
-            <ListItemText>Move attached</ListItemText>
-          </ListItem>
+        <Link href={routes.moveAttached}>
+          <ListItem button>Move attached</ListItem>
         </Link>
-        <Link to={routes.deleteAndDetach}>
-          <ListItem button>
-            <ListItemText>Delete + detach</ListItemText>
-          </ListItem>
+        <Link href={routes.deleteAndDetach}>
+          <ListItem button>Delete + detach</ListItem>
         </Link>
-        <Link to={routes.sort}>
-          <ListItem button>
-            <ListItemText>Sort</ListItemText>
-          </ListItem>
+        <Link href={routes.sort}>
+          <ListItem button>Sort</ListItem>
         </Link>
-        <Link to={routes.sortAttached}>
-          <ListItem button>
-            <ListItemText>Sort attached</ListItemText>
-          </ListItem>
+        <Link href={routes.sortAttached}>
+          <ListItem button>Sort attached</ListItem>
         </Link>
-        <Link to={routes.batch}>
-          <ListItem button>
-            <ListItemText>Batch</ListItemText>
-          </ListItem>
+        <Link href={routes.batch}>
+          <ListItem button>Batch</ListItem>
         </Link>
-        <Link to={routes.setState}>
-          <ListItem button>
-            <ListItemText>Set state</ListItemText>
-          </ListItem>
+        <Link href={routes.setState}>
+          <ListItem button>Set state</ListItem>
         </Link>
         <Divider/>
       </List>
 
-      <List
-        dense
-        component="div"
-        subheader={
-          <ListSubheader
-            component="div">Example Uses
-          </ListSubheader>
-        }
-      >
+      <List dense component="div">
+        <ListItem className={classNames.linkSectionHeader}>Example Usage</ListItem>
 
-        <Link to={routes.sortableTags}>
-          <ListItem button>
-            <ListItemText>Sortable tags list</ListItemText>
-          </ListItem>
+        <Link href={routes.sortableTags}>
+          <ListItem button>Sortable tags list</ListItem>
         </Link>
 
-        <Link to={routes.commentTree}>
-          <ListItem button>
-            <ListItemText>Comment tree</ListItemText>
-          </ListItem>
+        <Link href={routes.commentTree}>
+          <ListItem button>Comment tree</ListItem>
         </Link>
 
 
-        <Link to={routes.directoryTree}>
-          <ListItem button>
-            <ListItemText>Directory tree (composite tree)</ListItemText>
-          </ListItem>
+        <Link href={routes.directoryTree}>
+          <ListItem button>Directory tree (composite tree)</ListItem>
         </Link>
 
-        <Link to={routes.normalizrIntegration}>
-          <ListItem button>
-            <ListItemText>Normalizr Integration</ListItemText>
-          </ListItem>
+        <Link href={routes.normalizrIntegration}>
+          <ListItem button>Normalizr Integration</ListItem>
         </Link>
 
-        <Link to={routes.withReduxToolkit}>
-          <ListItem button>
-            <ListItemText>Redux Toolkit Integration</ListItemText>
-          </ListItem>
+        <Link href={routes.withReduxToolkit}>
+          <ListItem button>Redux Toolkit Integration</ListItem>
         </Link>
       </List>
     </List>

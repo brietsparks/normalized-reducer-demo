@@ -4,7 +4,7 @@ export default  {
   createIndexed: '/demo/create-indexed',
   update: '/demo/update',
   move: '/demo/move',
-  deleteBasic: '/demo/delete-basic',
+  deleteBasic: '/demo/delete',
   oneToMany: '/demo/attach-detach-one-to-many',
   manyToMany: '/demo/attach-detach-many-to-many',
   oneToOne: '/demo/attach-detach-one-to-one',
@@ -19,5 +19,5 @@ export default  {
   commentTree: '/examples/comment-tree',
   directoryTree: '/examples/directory-tree',
   normalizrIntegration: '/examples/normalizr-integration',
-  withReduxToolkit: '/example/with-redux-toolkit'
+  withReduxToolkit: '/examples/with-redux-toolkit'
 };

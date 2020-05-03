@@ -1,5 +1,8 @@
 import React from 'react';
-import JsonView from 'react-json-view';
+import dynamic from 'next/dynamic'
+
+// https://github.com/mac-s-g/react-json-view/issues/121#issuecomment-437267883
+const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
 export interface Props{
   state?: any,
@@ -15,7 +18,7 @@ function StateView({
   fullHeight = true
 }: Props) {
   return (
-    <JsonView
+    <DynamicReactJson
       style={{ paddingTop: 15, paddingLeft: 15, minHeight: fullHeight ? '100vh' : undefined }}
       src={state}
       name={name}

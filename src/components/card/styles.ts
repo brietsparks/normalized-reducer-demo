@@ -21,8 +21,6 @@ export const useStyles = makeStyles(theme => ({
     }
   }),
   cardBody: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
   },
   cardContainer: { marginBottom: theme.spacing(2) }
 }));
