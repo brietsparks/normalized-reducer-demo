@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { normalize } from 'normalizr';
 import { Cardinalities, fromNormalizr, NormalizrOutput, Schema } from 'normalized-reducer';
@@ -7,7 +8,6 @@ import { Cardinalities, fromNormalizr, NormalizrOutput, Schema } from 'normalize
 import normalizrSchema from './normalizr-schema';
 import { useStyles } from './styles';
 import { StateViewer } from '../../components/state-viewer';
-import { Links } from '../../nav';
 import { Code, ExternalLink, SummarySection } from '../../components/info';
 
 
@@ -111,39 +111,32 @@ export default function NormalizrIntegration() {
   const classNames = useStyles();
 
   return (
-    <Grid container>
-      <Grid item sm={2}>
-        <div className={classNames.scrollable}>
-          <Links/>
-        </div>
-      </Grid>
+    <Container className={classNames.main}>
+      <div className={classNames.scrollable}>
+        <div className={classNames.heading}>
+          <SummarySection title="Normalizr Integration"/>
 
-      <Grid item sm={10}>
-        <div className={classNames.scrollable}>
-          <div className={classNames.heading}>
-            <SummarySection title="Normalizr Integration"/>
-
-            <Typography>
-              Normalized-reducer integrates with normalizr via an adapter function
-              that transforms data normalized from normalizr into state that can
-              be fed into the reducer.
-            </Typography>
-          </div>
-
-          <Typography className={classNames.sourceLink}>
-            <ExternalLink
-              url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/normalizr-integration/NormalizrIntegration.tsx"
-              text="Source"
-            />
+          <Typography>
+            Normalized-reducer integrates with normalizr via an adapter function
+            that transforms data normalized from normalizr into state that can
+            be fed into the reducer.
           </Typography>
+        </div>
 
-          <Code>
-            {`const denormalizedData = {...}
+        <Typography className={classNames.sourceLink}>
+          <ExternalLink
+            url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/normalizr-integration/NormalizrIntegration.tsx"
+            text="Source"
+          />
+        </Typography>
+
+        <Code>
+          {`const denormalizedData = {...}
 const normalizedData: NormalizrOutput = normalize(denormalizedData, normalizrSchema);
 const initialState = fromNormalizr(normalizedData);`}
-          </Code>
-          <div className={classNames.state}>
-            <Grid container spacing={0}>
+        </Code>
+        <div className={classNames.state}>
+          <Grid container spacing={0}>
             <Grid item sm={4}>
               <div>
                 <StateViewer
@@ -171,9 +164,8 @@ const initialState = fromNormalizr(normalizedData);`}
               </div>
             </Grid>
           </Grid>
-          </div>
         </div>
-      </Grid>
-    </Grid>
+      </div>
+    </Container>
   );
 }

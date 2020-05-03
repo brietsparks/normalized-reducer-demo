@@ -12,7 +12,7 @@ export interface Props {
 }
 
 export default function ContentLayout({
-  sidebar = null, // todo
+  sidebar = null,
   main = null,
 }: Props) {
   const classNames = useStyles();
