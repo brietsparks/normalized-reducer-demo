@@ -125,7 +125,7 @@ export default function NormalizrIntegration() {
 
         <Typography className={classNames.sourceLink}>
           <ExternalLink
-            url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/normalizr-integration/NormalizrIntegration.tsx"
+            url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/examples/normalizr-integration/NormalizrIntegration.tsx"
             text="Source"
           />
         </Typography>

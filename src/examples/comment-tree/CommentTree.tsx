@@ -153,7 +153,7 @@ export const {
 
       <Typography className={classNames.sourceLink}>
         <ExternalLink
-          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/comment-tree/CommentTree.tsx"
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/examples/comment-tree/CommentTree.tsx"
           text="Source"
         />
       </Typography>

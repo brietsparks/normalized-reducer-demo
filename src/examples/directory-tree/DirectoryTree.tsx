@@ -177,7 +177,7 @@ export const {
 
       <Typography className={classNames.sourceLink}>
         <ExternalLink
-          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/directory-tree/DirectoryTree.tsx"
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/examples/directory-tree/DirectoryTree.tsx"
           text="Source"
         />
       </Typography>

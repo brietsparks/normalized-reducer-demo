@@ -94,7 +94,7 @@ const { selectors, actionCreators, reducer } = makeNormalizedSlice(schema);`}
 
       <Typography className={classNames.sourceLink}>
         <ExternalLink
-          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/sortable-tags/SortableTags.tsx"
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/examples/sortable-tags/SortableTags.tsx"
           text="Source"
         />
       </Typography>

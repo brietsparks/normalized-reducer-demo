@@ -91,7 +91,7 @@ function Main() {
 
       <Typography className={classNames.sourceLink}>
         <ExternalLink
-          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/example-features/with-redux-toolkit/WithReduxToolkit.js"
+          url="https://github.com/brietsparks/normalized-reducer-demo/blob/master/src/examples/with-redux-toolkit/WithReduxToolkit.js"
           text="Source"
         />
       </Typography>
