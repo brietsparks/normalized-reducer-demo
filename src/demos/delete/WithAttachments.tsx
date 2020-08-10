@@ -1,13 +1,13 @@
 import React, { useReducer } from 'react';
 import normalizedSlice, { Cardinalities, Id, Schema } from 'normalized-reducer';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
 import { ContentLayout } from '../../components/layout';
 import { CardsContainer } from '../../components/card';
 import Card from './Card';
 import { InfoSections, Label, Section } from '../../components/info';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 
 export interface Item {
   name: string,
@@ -78,7 +78,7 @@ export default function Example() {
   const deleteTag = (id: Id) => dispatch(actionCreators.delete('tag', id));
 
   const main = (
-    <div>
+    <Container>
       <InfoSections
         title="Delete + detach"
         summary="Delete an entity and automatically detach all entities from it"
@@ -128,7 +128,7 @@ export default function Example() {
           </CardsContainer>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 
   return (

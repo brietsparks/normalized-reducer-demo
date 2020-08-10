@@ -151,11 +151,14 @@ function NewItemForm({ onSubmit }: NewItemFormProps) {
         value={index}
         onChange={e => e && setIndex(Number(e.target.value))}
         type="number"
+        label="Index"
       />
 
-      <IconButton onClick={handleSubmit} color="primary" disabled={!cleanName}>
-        <AddIcon/>
-      </IconButton>
+      <div>
+        <IconButton onClick={handleSubmit} color="primary" disabled={!cleanName}>
+          <AddIcon/>
+        </IconButton>
+      </div>
     </div>
   );
 }

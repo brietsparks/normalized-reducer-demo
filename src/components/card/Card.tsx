@@ -16,6 +16,7 @@ export interface Props {
   isSelected?: boolean,
   onSelect?: () => void,
   onDeselect?: () => void,
+  deletable?: boolean,
 }
 
 export default function Card({
@@ -28,6 +29,7 @@ export default function Card({
   isSelected,
   onSelect,
   onDeselect,
+  deletable,
 }: Props) {
   const classes = useStyles({ isSelectable, isSelected });
 
@@ -47,7 +49,7 @@ export default function Card({
 
       <Grid
         item
-        xs={left || right ? (left && right ? 8 : 10) : 12}
+        xs={(left || right || deletable) ? (left && right ? 8 : 10) : 12}
         className={classes.cardBody}
       >
         <Paper className={classes.cardWrapper} onClick={handleClick}>

@@ -19,7 +19,7 @@ export default function ContentLayout({
 
   return (
     <Grid container>
-      <Grid item xs={12} sm={8}>
+      <Grid item xs={12} sm={12} md={8}>
         <Container className={classNames.scrollable}>
           <div className={classNames.main}>
             {main}
@@ -27,7 +27,7 @@ export default function ContentLayout({
         </Container>
       </Grid>
 
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={12} md={4}>
         <div className={classNames.scrollable}>
           <StateViewer state={state} name={stateName}/>
         </div>

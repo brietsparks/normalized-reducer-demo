@@ -27,6 +27,7 @@ export default function Card({
     <CardPresentation
       key={id}
       isSelectable={false}
+      deletable={!!del}
       body={
         <CardBody
           id={id}

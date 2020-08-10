@@ -4,6 +4,7 @@ export const useStyles = makeStyles(theme => ({
   form: {
     display: 'flex',
     marginBottom: theme.spacing(2),
+    alignItems: 'center',
   },
   formItemName: {
     marginRight: theme.spacing(1)
@@ -13,5 +14,5 @@ export const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     fontStyle: 'italic',
     color: '#888'
-  }
+  },
 }));

@@ -101,6 +101,23 @@ export default function Links() {
         <Link href={routes.withReduxToolkit}>
           <ListItem button>Redux Toolkit Integration</ListItem>
         </Link>
+        <Divider/>
+      </List>
+
+      <List dense component="div">
+        <ListItem className={classNames.linkSectionHeader}>Tutorial</ListItem>
+
+        <Link href={routes.tutorialPart1}>
+          <ListItem button>Part 1</ListItem>
+        </Link>
+
+        <Link href={routes.tutorialPart2}>
+          <ListItem button>Part 2</ListItem>
+        </Link>
+
+        <Link href={routes.tutorialPart3}>
+          <ListItem button>Part 3</ListItem>
+        </Link>
       </List>
     </List>
   );

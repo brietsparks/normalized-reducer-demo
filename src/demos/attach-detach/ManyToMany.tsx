@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import normalizedSlice, { Cardinalities, Id, Schema } from 'normalized-reducer';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Typography from '@material-ui/core/Typography';
 
@@ -103,7 +104,7 @@ export default function Example() {
   };
 
   const main = (
-    <div>
+    <Container>
       <SummarySection
         title="Attach/detach many-to-many"
         summary="Attach and detach entities of a many-to-many relationship"
@@ -182,7 +183,7 @@ export default function Example() {
           </Grid>
         </Grid>
       </ClickAwayListener>
-    </div>
+    </Container>
   );
 
   return (
